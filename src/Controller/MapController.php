@@ -2,18 +2,16 @@
 
 namespace App\Controller;
 
-//use http\Env\Response;
-use Symfony\Component\HttpFoundation\Response;
+use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+
 class MapController extends AbstractController
 {
     #[Route('/map')]
 
-    public function map() : Response
+    public function execute(): Response
     {
         session_start();
 
@@ -89,9 +87,9 @@ class MapController extends AbstractController
         }
 
         return $this->render('map/map.html.twig', [
-                "titre"   => 'MapController',
-                "stations" => $stations
+            "titre"   => 'MapController',
+            "stations" => $stations
 
-            ]);
+        ]);
     }
 }
