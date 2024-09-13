@@ -1,0 +1,188 @@
+{% extends "map.base.html.twig" %}
+
+{% block css %}
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Style du popup */
+        .leaflet-popup-content {
+            text-align: center; /* Centrage du contenu */
+        }
+
+        /* Style du titre */
+        .leaflet-popup-content h3 {
+            margin: 0 0 10px; /* Espacement du bas */
+            font-size: 18px; /* Taille du titre */
+            color: #333; /* Couleur du titre */
+        }
+
+        /* Style des infos de la station */
+        .station-info {
+            display: flex; /* Utilisation d'un layout flexbox */
+            justify-content: space-between; /* Espacement égal entre les éléments */
+            margin-bottom: 10px; /* Espacement du bas */
+        }
+
+        /* Style des informations sur les vélos */
+        .bike-info {
+            display: flex; /* Utilisation d'un layout flexbox */
+            flex-direction: column; /* Empile les éléments les uns sur les autres */
+            align-items: center; /* Centrage horizontal */
+        }
+
+        .bike-info img {
+            width: 50px; /* Largeur de l'image */
+            height: auto; /* Hauteur automatique */
+            margin-bottom: 5px; /* Espacement du bas */
+        }
+
+        .bike-info span {
+            font-size: 14px; /* Taille de la police */
+            color: #666; /* Couleur du texte */
+        }
+
+        /* Style du paragraphe de la capacité */
+        .leaflet-popup-content p {
+            margin: 0; /* Annule les marges par défaut */
+            font-size: 14px; /* Taille de la police */
+            color: #666; /* Couleur du texte */
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+{% endblock %}
+
+{% block body %}
+    <h1>Ma Carte</h1>
+
+    <div id="map">
+        <!-- Ici s'affichera la carte -->
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="/js/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <script type="text/javascript">
+
+        // On initialise la latitude et la longitude de Paris (centre de la carte)
+        var lat = 48.8566; // Nouvelle latitude pour Paris
+        var lon = 2.3522;  // Nouvelle longitude pour Paris
+        var macarte = null;
+
+        // Fonction d'initialisation de la carte
+        function initMap() {
+            // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+            macarte = L.map('map').setView([lat, lon], 12); // Ajuster le zoom à 12
+            // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                // Il est toujours bien de laisser le lien vers la source des données
+                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                minZoom: 1,
+                maxZoom: 20
+            })
+                .addTo(macarte);
+
+
+            // Créer un groupe de marqueurs
+            var markers = L.markerClusterGroup();
+
+            // Ajouter les marqueurs à la carte
+            // Ajouter les marqueurs à la carte avec les popups
+            var markers = L.markerClusterGroup();
+            // Ajouter les marqueurs à la carte avec les popups
+            var markers = L.markerClusterGroup();
+
+
+            {% for station in stations %}
+            var customIcon = L.icon({
+                iconUrl: 'images/img.png',
+                iconSize: [38, 38],
+                iconAnchor: [19, 38],
+                popupAnchor: [0, -38]
+            });
+            var marker = L.marker([{{ station.lat }}, {{ station.lon }}], {icon: customIcon});
+            marker.bindPopup('<div class="leaflet-popup-content">' +
+                '<h3>{{ station.nom }}</h3>' +
+                '<div class="station-info">' +
+                '<div class="bike-info">' +
+                '<span>Vélo électrique</span>' + // Libellé pour vélo électrique
+                '<img src="images/blueBike.png" alt="Vélo électrique">' +
+                '<span>{{ station.velomelec }}</span>' +
+                '</div>' +
+                '<div class="bike-info">' +
+                '<span>Vélo mécanique</span>' + // Libellé pour vélo mécanique
+                '<img src="images/greenBike.png" alt="Vélo mécanique">' +
+                '<span>{{ station.velomecha }}</span>' +
+                '</div>' +
+                '</div>' +
+                '<p>Capacité : {{ station.velodispo }}</p>' +
+                '</div>');
+            markers.addLayer(marker);
+            {% endfor %}
+            macarte.addLayer(markers);
+
+            // Ajouter le groupe de marqueurs à la carte
+            macarte.addLayer(markers);
+        }
+        window.onload = function(){
+            // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+            initMap();
+
+            // Utilisation de la géolocalisation de l'utilisateur
+            if ("geolocation" in navigator) {
+                // Utilise watchPosition() au lieu de getCurrentPosition()
+                var watchId = navigator.geolocation.watchPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+
+                    // Centrer la carte sur la position de l'utilisateur
+                    macarte.setView([lat, lon], 12);
+
+                    // Définir l'icône personnalisée pour l'indicateur de position
+                    var customIcon = L.icon({
+                        iconUrl: 'images/icon.png', // Spécifiez le chemin de votre icône personnalisée
+                        iconSize: [30, 30], // Taille de l'icône
+                        iconAnchor: [16, 32] // Point d'ancrage de l'icône
+                    });
+
+                    // Ajouter un marqueur à la position de l'utilisateur avec l'icône personnalisée
+                    if (!macarte.marker) {
+                        macarte.marker = L.marker([lat, lon], {icon: customIcon}).addTo(macarte);
+                        macarte.marker.bindPopup("Vous êtes ici");
+                    }
+                    else {
+                        macarte.marker.setLatLng([lat, lon]).update();
+                    }
+                });
+            } else {
+                alert("La géolocalisation n'est pas disponible sur votre navigateur.");
+            }
+
+
+
+
+        };
+    </script>
+{% endblock %}
