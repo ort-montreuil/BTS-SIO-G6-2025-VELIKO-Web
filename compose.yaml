@@ -42,5 +42,12 @@ services:
       MYSQL_DATABASE: bdd_veliko
 
 
+  mock-veliko-api:
+      container_name: mock-veliko-api
+      image: bfoujols/mock-veliko-api:latest
+      ports:
+        - "9042:80"
+
+
 
 
