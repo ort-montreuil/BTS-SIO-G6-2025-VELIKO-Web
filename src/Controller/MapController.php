@@ -19,7 +19,8 @@ class MapController extends AbstractController
 
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/station_information.json",
+            CURLOPT_PORT => "9042",
+            CURLOPT_URL => "http://localhost:9042/api/stations",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
@@ -44,7 +45,8 @@ class MapController extends AbstractController
 
         $curl2 = curl_init();
         curl_setopt_array($curl2, [
-            CURLOPT_URL => "https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/station_status.json",
+            CURLOPT_PORT => "9042",
+            CURLOPT_URL => "http://localhost:9042/api/stations/status",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
@@ -66,22 +68,26 @@ class MapController extends AbstractController
             $response2 = json_decode($response2, true);
         }
 
+
         $stations = [];
-        foreach ($response['data']['stations'] as $infostat) {
-            foreach ($response2['data']['stations'] as $infovelo) {
+        for ($i = 0; $i < count($response); $i++) {
+            $infostat = $response [$i];
+
+            for ($j = 0; $j < count($response2); $j++) {
+                $infovelo = $response2[$j];
+
                 if ($infostat['station_id'] == $infovelo['station_id']) {
                     $stations_data = [
                         'nom' => $infostat['name'],
                         'lat' => $infostat['lat'],
                         'lon' => $infostat['lon'],
-                        'velodispo' => $infovelo['numBikesAvailable'],
+                        'velodispo' => $infovelo['num_bikes_available'],
                         'velomecha' => $infovelo['num_bikes_available_types'][0]['mechanical'],
                         'velomelec' => $infovelo['num_bikes_available_types'][1]['ebike']
                     ];
-                    $stations[] = $stations_data; // opérateur d'assignation corrigé pour ajouter au tableau
-                    // var_dump($stations);
-                    break;
 
+                    $stations[] = $stations_data;
+                    break;
                 }
             }
         }
