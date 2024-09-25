@@ -1,4 +1,3 @@
-version: "3.8"
 services:
 # PHP
   php:
@@ -30,17 +29,14 @@ services:
   # Base de données MySQL
   db:
     image: mysql:8.0
-    #mage: mariadb:10.3
     container_name: mysql_Veliko
     restart: always
     command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - ./mysql/init_test.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./mysql/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: groupe6
       MYSQL_DATABASE: bdd_veliko
-
+    ports:
+      - "3306:3306"
 
   mock-veliko-api:
       container_name: mock-veliko-api
@@ -50,4 +46,7 @@ services:
 
 
 
-
+volumes:
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###
