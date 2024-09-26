@@ -22,7 +22,10 @@ class RegistrationFormType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('date_naissance', DateType::class, [
+                'widget' => 'choice', // Use dropdowns for date selection
                 'format' => 'yyyy-MM-dd',
+                'years' => range(1900, date('Y')), // Set a 100-year range, starting from today
+                'label' => 'Date de naissance', // Customize label if needed
             ])
             ->add('adresse')
             ->add('code_postale')
