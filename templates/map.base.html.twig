@@ -7,33 +7,37 @@
         body {
             font-size: 12px;
             font-family: sans-serif;
-            background: #2c3e50;
+            background: #eff0f5;
         }
 
         /* Style pour le header et le logo */
         header {
+            width: 95%;
+            max-width: 1500px; /* Largeur maximale pour éviter que l'en-tête soit trop large */
+            margin: 5px auto 0; /* Ajoute un espace en haut, centre l'en-tête */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            background-color: #34495e;
-            border-radius: 8px;
+            padding: 10px;
+            background-color: #113f67;
+            border-radius: 20px;
         }
 
         .logo img {
-            width: 150px; /* Taille du logo */
+            width: 80px; /* Taille du logo */
+
         }
 
         /* Style pour le menu de navigation */
         nav {
             position: relative;
-            width: 500px; /* Ajuste selon tes besoins */
+            width: 488px; /* Ajuste selon tes besoins */
             height: 50px;
-            background-color: #34495e;
+            background-color: #113f67;
             border-radius: 8px;
             font-size: 0;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
         }
 
         nav a {
@@ -81,14 +85,14 @@
 
         nav .start-deconnexion, a:nth-child(4):hover~.animation {
             width: 160px;
-            left: 300px;
+            left: 324px;
             background-color: #e67e22;
         }
 
     </style>
     <header>
         <div class="logo">
-            <img src="images/logo.png">
+            <img src="images/logo1.png">
         </div>
         <nav>
             <a href="#accueil">Accueil</a>
