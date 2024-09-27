@@ -8,13 +8,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HelloController extends AbstractController
 {
-    #[Route('/hello')]
+    #[Route('/accueil')]
 
     public function hello(): Response{
 
         $hello = "Hello world";
 
-        return $this->render('hello/hello.html.twig', [
+        return $this->render('hello/accueil.html.twig', [
             'titre' => $hello,
             ]);
     }
