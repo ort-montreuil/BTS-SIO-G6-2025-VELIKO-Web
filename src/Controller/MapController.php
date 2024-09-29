@@ -70,12 +70,9 @@ class MapController extends AbstractController
 
 
         $stations = [];
-        for ($i = 0; $i < count($response); $i++) {
-            $infostat = $response [$i];
 
-            for ($j = 0; $j < count($response2); $j++) {
-                $infovelo = $response2[$j];
-
+        foreach ($response as $infostat) {
+            foreach ($response2 as $infovelo) {
                 if ($infostat['station_id'] == $infovelo['station_id']) {
                     $stations_data = [
                         'nom' => $infostat['name'],
@@ -85,9 +82,10 @@ class MapController extends AbstractController
                         'velomecha' => $infovelo['num_bikes_available_types'][0]['mechanical'],
                         'velomelec' => $infovelo['num_bikes_available_types'][1]['ebike']
                     ];
-
-                    $stations[] = $stations_data;
+                    $stations[] = $stations_data; // opérateur d'assignation corrigé pour ajouter au tableau
+                    // var_dump($stations);
                     break;
+
                 }
             }
         }
