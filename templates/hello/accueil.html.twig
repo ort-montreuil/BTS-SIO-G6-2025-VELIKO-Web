@@ -1,107 +1,130 @@
+<style>
+    /* Style général pour le corps */
+    body {
+        font-size: 12px;
+        font-family: sans-serif;
+        background: #eff0f5;
+    }
 
-    <style>
-        /* Style général pour le corps */
-        body {
-            font-size: 12px;
-            font-family: sans-serif;
-            background: #eff0f5;
-        }
+    /* Style pour le header et le logo */
+    header {
+        width: 95%;
+        max-width: 1500px; /* Largeur maximale pour éviter que l'en-tête soit trop large */
+        margin: 5px auto 0; /* Ajoute un espace en haut, centre l'en-tête */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #113f67;
+        border-radius: 20px;
+        z-index: 2; /* Assure que le header est au-dessus de l'image */
+        position: relative;
+    }
 
-        /* Style pour le header et le logo */
-        header {
-            width: 95%;
-            max-width: 1500px; /* Largeur maximale pour éviter que l'en-tête soit trop large */
-            margin: 5px auto 0; /* Ajoute un espace en haut, centre l'en-tête */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #113f67;
-            border-radius: 20px;
-        }
+    .logo img {
+        width: 80px; /* Taille du logo */
+    }
 
-        .logo img {
-            width: 80px; /* Taille du logo */
+    /* Style pour le menu de navigation */
+    nav {
+        position: relative;
+        width: 450px; /* Ajuste selon tes besoins */
+        height: 50px;
+        background-color: #113f67;
+        border-radius: 8px;
+        font-size: 0;
+        display: flex;
+        justify-content: space-between;
+        z-index: 2; /* S'assure que le menu de navigation est au-dessus de l'image */
+    }
 
-        }
+    nav a {
+        line-height: 50px;
+        height: 100%;
+        font-size: 15px;
+        display: inline-block;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        position: relative;
+        z-index: 1;
+        padding: 0 15px;
+        cursor: pointer;
+    }
 
-        /* Style pour le menu de navigation */
-        nav {
-            position: relative;
-            width: 450px; /* Ajuste selon tes besoins */
-            height: 50px;
-            background-color: #000000;
-            border-radius: 8px;
-            font-size: 0;
-            display: flex;
-            justify-content: space-between;
-        }
+    /* Animation Lavalamp */
+    nav .animation {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        z-index: 0;
+        transition: all 0.5s ease;
+        border-radius: 8px;
+    }
 
-        nav a {
-            line-height: 50px;
-            height: 100%;
-            font-size: 15px;
-            display: inline-block;
-            text-decoration: none;
-            text-transform: uppercase;
-            text-align: center;
-            color: white;
-            position: relative;
-            z-index: 1;
-            padding: 0 15px;
-            cursor: pointer;
-        }
+    nav .start-accueil, a:nth-child(1):hover~.animation {
+        width: 100px;
+        left: 0;
+        background-color: #1abc9c;
+    }
 
-        /* Animation Lavalamp */
-        nav .animation {
-            position: absolute;
-            height: 100%;
-            top: 0;
-            z-index: 0;
-            transition: all 0.5s ease;
-            border-radius: 8px;
-        }
+    nav .start-profil, a:nth-child(2):hover~.animation {
+        width: 100px;
+        left: 100px;
+        background-color: #e74c3c;
+    }
 
-        nav .start-accueil, a:nth-child(1):hover~.animation {
-            width: 100px;
-            left: 0;
-            background-color: #1abc9c;
-        }
+    nav .start-about, a:nth-child(3):hover~.animation {
+        width: 120px;
+        left: 200px;
+        background-color: #3498db;
+    }
 
-        nav .start-profil, a:nth-child(2):hover~.animation {
-            width: 100px;
-            left: 100px;
-            background-color: #e74c3c;
-        }
+    nav .start-deconnexion, a:nth-child(4):hover~.animation {
+        width: 125px;
+        left: 325px;
+        background-color: #e67e22;
+    }
 
-        nav .start-about, a:nth-child(3):hover~.animation {
-            width: 120px;
-            left: 200px;
-            background-color: #3498db;
-        }
+    /* Style pour l'image en arrière-plan */
+    .home-pic-container {
+        position: absolute; /* Permet à l'image d'être positionnée derrière */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh; /* L'image prendra toute la hauteur de la fenêtre */
+        z-index: 0; /* Place l'image derrière la barre de navigation */
+        overflow: hidden; /* Coupe tout dépassement de l'image */
+    }
 
-        nav .start-deconnexion, a:nth-child(4):hover~.animation {
-            width: 125px;
-            left: 325px;
-            background-color: #e67e22;
-        }
+    .home-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ajuste l'image pour qu'elle couvre toute la zone sans déformation */
+    }
 
-    </style>
-    <header>
-        <div class="logo">
-            <a href="#accueil"><img src="images/logo1.png"></a>
-        </div>
-        <nav>
-            <a href="#accueil">Accueil</a>
-            <a href="profil">Profil</a>
-            <a href="#about">À propos</a>
-            <a href='login'>Connexion</a>
-            <div class="animation start-accueil"></div>
-        </nav>
-    </header>
-    <title>Carte</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
-    {% block css %}{% endblock %}
+</style>
+<header>
+    <div class="logo">
+        <a href="#accueil"><img src="images/logo1.png"></a>
+    </div>
+    <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="profil">Profil</a>
+        <a href="#about">À propos</a>
+        <a href='login'>Connexion</a>
+        <div class="animation start-accueil"></div>
+    </nav>
+</header>
+
+<div class="home-pic-container">
+    <img src="images/homePic.jpg" alt="Home Picture" class="home-pic">
+</div>
+
+<title>Carte</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+{% block css %}{% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
@@ -110,4 +133,3 @@
 
 </body>
 </html>
-
