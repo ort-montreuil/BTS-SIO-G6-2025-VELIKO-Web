@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #113f67;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form p {
+            margin: 0;
+            padding: 5px 0;
+            font-weight: bold;
+            color: #555;
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form input[type="date"],
+        form input[type="password"],
+        form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="number"]:focus,
+        form input[type="date"]:focus,
+        form input[type="password"]:focus {
+            border-color: #113f67;
+            outline: none;
+        }
+
+        form button {
+            background-color: #113f67;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #87c0cd;
+        }
+
+        .alert {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 10px;
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ titre }}</h1>
+
+    <div class="form-container">
+        <h2>Modifier mes informations</h2>
+        <form method="post" action="">
+            {{ form_errors(profilForm) }}
+
+            {{ form_start(profilForm) }}
+
+            {{ form_row(profilForm.id) }}
+            {{ form_row(profilForm.action) }}
+
+            <p>Nom:</p>
+            {{ form_row(profilForm.nom) }}
+            <p>Prénom:</p>
+            {{ form_row(profilForm.prenom) }}
+            <p>Email:</p>
+            {{ form_row(profilForm.email) }}
+            <p>Ville:</p>
+            {{ form_row(profilForm.ville) }}
+            <p>Code postal:</p>
+            {{ form_row(profilForm.codePostale) }}
+            <p>Adresse:</p>
+            {{ form_row(profilForm.adresse) }}
+            <p>Date de naissance:</p>
+            {{ form_row(profilForm.dateNaissance) }}
+
+            <button type="submit" name="action" value="update">Valider les modifications</button>
+
+            {{ form_end(profilForm) }}
+        </form>
+    </div>
+
+
+{% endblock %}
+

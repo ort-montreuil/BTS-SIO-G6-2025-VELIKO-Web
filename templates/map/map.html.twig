@@ -132,23 +132,36 @@
                 popupAnchor: [0, -38]
             });
             var marker = L.marker([{{ station.lat }}, {{ station.lon }}], {icon: customIcon});
-            marker.bindPopup('<div class="leaflet-popup-content">' +
+
+            // Crée le contenu du popup
+            var popupContent = '<div class="leaflet-popup-content">' +
                 '<h3>{{ station.nom }}</h3>' +
                 '<div class="station-info">' +
                 '<div class="bike-info">' +
-                '<span>Vélo électrique</span>' + // Libellé pour vélo électrique
+                '<span>Vélo électrique</span>' +
                 '<img src="images/blueBike.png" alt="Vélo électrique">' +
                 '<span>{{ station.velomelec }}</span>' +
                 '</div>' +
                 '<div class="bike-info">' +
-                '<span>Vélo mécanique</span>' + // Libellé pour vélo mécanique
+                '<span>Vélo mécanique</span>' +
                 '<img src="images/greenBike.png" alt="Vélo mécanique">' +
                 '<span>{{ station.velomecha }}</span>' +
                 '</div>' +
                 '</div>' +
                 '<p>Capacité : {{ station.velodispo }}</p>' +
-                '</div>');
+                '</div>';
+
+              // Attache le popup aux événements 'mouseover' et 'mouseout'
+            marker.on('mouseover', function (e) {
+                this.bindPopup(popupContent).openPopup(); // Ouvre le popup au survol
+            });
+
+            marker.on('mouseout', function (e) {
+                this.closePopup(); // Ferme le popup quand la souris quitte le marqueur
+            });
+
             markers.addLayer(marker);
+
             {% endfor %}
             macarte.addLayer(markers);
 

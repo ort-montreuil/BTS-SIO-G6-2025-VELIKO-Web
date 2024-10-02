@@ -32,11 +32,16 @@ services:
     container_name: mysql_Veliko
     restart: always
     command: --default-authentication-plugin=mysql_native_password
+
     environment:
       MYSQL_ROOT_PASSWORD: groupe6
       MYSQL_DATABASE: bdd_veliko
     ports:
       - "3306:3306"
+    volumes:
+      - database_data:/var/lib/mysql
+
+
 
   mock-veliko-api:
       container_name: mock-veliko-api
