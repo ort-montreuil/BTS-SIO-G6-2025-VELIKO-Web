@@ -9,11 +9,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MapController extends AbstractController
 {
-    #[Route('/map')]
+    #[Route('/map', name: 'app_map')]
 
     public function execute(): Response
     {
-        session_start();
 
         $curl = curl_init();
 
