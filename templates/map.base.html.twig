@@ -94,13 +94,25 @@
         <div class="logo">
             <a href="{{ path('app_accueil') }}"><img src="images/logo1.png" alt="Logo"></a>
         </div>
+
+
         <nav>
-            <a href="{{ path('app_accueil') }}">Accueil</a>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="#accueil">Accueil</a>
             <a href="profil">Profil</a>
             <a href="#about">À propos</a>
             <a href="{{ path('app_logout') }}">Se déconnecter</a>
             <div class="animation start-accueil"></div>
+        {% else %}
+            <a href="#accueil">Accueil</a>
+            <a href="register">Inscription</a>
+            <a href="#about">À propos</a>
+            <a href='login'>Connexion</a>
+            <div class="animation start-accueil"></div>
+        {% endif %}
         </nav>
+
+
     </header>
     <title>Carte</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
