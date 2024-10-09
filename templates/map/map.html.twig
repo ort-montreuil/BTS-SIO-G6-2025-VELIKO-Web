@@ -124,6 +124,10 @@
             var markers = L.markerClusterGroup();
 
 
+            // Remove the second and third 'var markers = ...' lines
+            var markers = L.markerClusterGroup();
+
+// Add the custom markers and popups as you loop through the stations
             {% for station in stations %}
             var customIcon = L.icon({
                 iconUrl: 'images/img.png',
@@ -133,7 +137,6 @@
             });
             var marker = L.marker([{{ station.lat }}, {{ station.lon }}], {icon: customIcon});
 
-            // Crée le contenu du popup
             var popupContent = '<div class="leaflet-popup-content">' +
                 '<h3>{{ station.nom }}</h3>' +
                 '<div class="station-info">' +
@@ -151,18 +154,12 @@
                 '<p>Capacité : {{ station.velodispo }}</p>' +
                 '</div>';
 
-              // Attache le popup aux événements 'mouseover' et 'mouseout'
-            marker.on('mouseover', function (e) {
-                this.bindPopup(popupContent).openPopup(); // Ouvre le popup au survol
-            });
 
-            marker.on('mouseout', function (e) {
-                this.closePopup(); // Ferme le popup quand la souris quitte le marqueur
-            });
-
-            markers.addLayer(marker);
-
+            //Il faut trouver une solution pour le pop up avec un hoover
+            marker.bindPopup(popupContent); // Simply bind the popup
+            markers.addLayer(marker); // Add each marker to the marker cluster group
             {% endfor %}
+
             macarte.addLayer(markers);
 
             // Ajouter le groupe de marqueurs à la carte
