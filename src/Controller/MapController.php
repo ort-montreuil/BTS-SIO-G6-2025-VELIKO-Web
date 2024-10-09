@@ -81,7 +81,7 @@ class MapController extends AbstractController
                         'lon' => $infostat['lon'],
                         'velodispo' => $infovelo['num_bikes_available'],
                         'velomecha' => $infovelo['num_bikes_available_types'][0]['mechanical'],
-                        'velomelec' => $infovelo['num_bikes_available_types'][1]['ebike']
+                        'veloelec' => $infovelo['num_bikes_available_types'][1]['ebike']
                     ];
                     $stations[] = $stations_data; // opérateur d'assignation corrigé pour ajouter au tableau
                     // var_dump($stations);
