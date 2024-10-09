@@ -1,5 +1,24 @@
 <style>
-    /* Style général pour le corps */
+
+    /* Style pour l'image en arrière-plan */
+    .home-pic-container {
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Image couvrant toute la fenêtre */
+        overflow: hidden;
+    }
+
+    .home-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Assure une bonne proportion de l'image */
+        filter: brightness(70%); /* Ajoute une légère obscurité pour contraster le texte */
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
     /* Style général pour le corps */
     body {
         font-family: 'Open Sans', sans-serif;
@@ -176,7 +195,7 @@
     <div class="home-content">
         <h1>Bienvenue sur notre site</h1>
         <p>Explorez nos services et découvrez tout ce que nous avons à vous offrir. </p>
-        <a href="#services">En savoir plus</a>
+        <a href="{{ path('app_map') }}">Voir la carte</a>
     </div>
 </div>
 
