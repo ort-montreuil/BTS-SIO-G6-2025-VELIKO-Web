@@ -92,14 +92,14 @@
     </style>
     <header>
         <div class="logo">
-            <img src="images/logo1.png">
+            <a href="{{ path('app_accueil') }}"><img src="images/logo1.png" alt="Logo"></a>
         </div>
         <nav>
-            <a href="#accueil">Accueil</a>
+            <a href="{{ path('app_accueil') }}">Accueil</a>
             <a href="profil">Profil</a>
             <a href="#about">À propos</a>
             <a href="{{ path('app_logout') }}">Se déconnecter</a>
-            <div class="animation start-accueil"></div>            <div class="animation start-accueil"></div>
+            <div class="animation start-accueil"></div>
         </nav>
     </header>
     <title>Carte</title>

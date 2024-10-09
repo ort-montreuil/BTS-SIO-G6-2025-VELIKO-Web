@@ -92,30 +92,6 @@ class MapController extends AbstractController
         }
 
 
-//        for ($i = 0; $i < count($response); $i++)
-//        {
-//            $infostat = $response [$i];
-//
-//            for ($j = 0; $j < count($response2); $j++) {
-//                $infovelo = $response2[$j];
-//
-//                if ($infostat['station_id'] == $infovelo['station_id']) {
-//                    $stations_data = [
-//                        'nom' => $infostat['name'],
-//                        'lat' => $infostat['lat'],
-//                        'lon' => $infostat['lon'],
-//                        'velodispo' => $infovelo['num_bikes_available'],
-//                        'velomecha' => $infovelo['num_bikes_available_types'][0]['mechanical'],
-//                        'velomelec' => $infovelo['num_bikes_available_types'][1]['ebike']
-//                    ];
-//
-//                    $stations[] = $stations_data;
-//                    break;
-//                }
-//            }
-
-        //       }
-
         return $this->render('map/map.html.twig', [
             "titre"   => 'MapController',
             "stations" => $stations
