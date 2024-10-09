@@ -1,110 +1,180 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <style>
-        /* Style général pour le corps */
-        body {
-            font-size: 12px;
-            font-family: sans-serif;
-            background: #eff0f5;
-        }
+<style>
+    /* Style général pour le corps */
+    /* Style général pour le corps */
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #eff0f5;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
 
-        /* Style pour le header et le logo */
-        header {
-            width: 95%;
-            max-width: 1500px; /* Largeur maximale pour éviter que l'en-tête soit trop large */
-            margin: 5px auto 0; /* Ajoute un espace en haut, centre l'en-tête */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #113f67;
-            border-radius: 20px;
-        }
+    /* Style pour le header et le logo */
+    header {
+        width: 95%;
+        max-width: 1500px; /* Largeur maximale pour éviter que l'en-tête soit trop large */
+        margin: 5px auto 0; /* Ajoute un espace en haut, centre l'en-tête */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #113f67;
+        border-radius: 20px;
+        z-index: 2; /* Assure que le header est au-dessus de l'image */
+        position: relative;
+    }
 
-        .logo img {
-            width: 80px; /* Taille du logo */
+    .logo img {
+        width: 80px;
+    }
 
-        }
+    /* Style pour le menu de navigation (inchangé) */
+    nav {
+        position: relative;
+        width: 450px; /* Ajuste selon tes besoins */
+        height: 50px;
+        background-color: #000000;
+        border-radius: 8px;
+        font-size: 0;
+        display: flex;
+        justify-content: space-between;
+    }
 
-        /* Style pour le menu de navigation */
-        nav {
-            position: relative;
-            width: 450px; /* Ajuste selon tes besoins */
-            height: 50px;
-            background-color: #000000;
-            border-radius: 8px;
-            font-size: 0;
-            display: flex;
-            justify-content: space-between;
-        }
+    nav a {
+        line-height: 50px;
+        height: 100%;
+        font-size: 15px;
+        display: inline-block;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        position: relative;
+        z-index: 1;
+        padding: 0 15px;
+        cursor: pointer;
+    }
 
-        nav a {
-            line-height: 50px;
-            height: 100%;
-            font-size: 15px;
-            display: inline-block;
-            text-decoration: none;
-            text-transform: uppercase;
-            text-align: center;
-            color: white;
-            position: relative;
-            z-index: 1;
-            padding: 0 15px;
-            cursor: pointer;
-        }
+    /* Animation Lavalamp */
+    nav .animation {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        z-index: 0;
+        transition: all 0.5s ease;
+        border-radius: 8px;
+    }
 
-        /* Animation Lavalamp */
-        nav .animation {
-            position: absolute;
-            height: 100%;
-            top: 0;
-            z-index: 0;
-            transition: all 0.5s ease;
-            border-radius: 8px;
-        }
+    nav .start-accueil, a:nth-child(1):hover~.animation {
+        width: 100px;
+        left: 0;
+        background-color: #1abc9c;
+    }
 
-        nav .start-accueil, a:nth-child(1):hover~.animation {
-            width: 100px;
-            left: 0;
-            background-color: #1abc9c;
-        }
+    nav .start-profil, a:nth-child(2):hover~.animation {
+        width: 100px;
+        left: 100px;
+        background-color: #e74c3c;
+    }
 
-        nav .start-profil, a:nth-child(2):hover~.animation {
-            width: 100px;
-            left: 100px;
-            background-color: #e74c3c;
-        }
+    nav .start-about, a:nth-child(3):hover~.animation {
+        width: 120px;
+        left: 200px;
+        background-color: #3498db;
+    }
 
-        nav .start-about, a:nth-child(3):hover~.animation {
-            width: 120px;
-            left: 200px;
-            background-color: #3498db;
-        }
+    nav .start-deconnexion, a:nth-child(4):hover~.animation {
+        width: 125px;
+        left: 325px;
+        background-color: #e67e22;
+    }
 
-        nav .start-deconnexion, a:nth-child(4):hover~.animation {
-            width: 125px;
-            left: 325px;
-            background-color: #e67e22;
-        }
+    /* Style pour l'image en arrière-plan */
+    .home-pic-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh; /* Image couvrant toute la fenêtre */
+        z-index: 0; /* Place l'image derrière le contenu */
+        overflow: hidden; /* Coupe tout dépassement de l'image */
+    }
 
-    </style>
-    <header>
-        <div class="logo">
-            <a href="#accueil"><img src="images/logo1.png"></a>
-        </div>
-        <nav>
-            <a href="#accueil">Accueil</a>
-            <a href="profil">Profil</a>
-            <a href="#about">À propos</a>
-            <a href='deconnexion'>Connexion</a>
-            <div class="animation start-accueil"></div>
-        </nav>
-    </header>
-    <title>Carte</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
-    {% block css %}{% endblock %}
+    .home-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ajuste l'image pour qu'elle prenne toute la place sans déformation */
+        filter: brightness(70%); /* Réduit la luminosité pour contraster le texte */
+    }
+
+    /* Style pour le contenu de la page d'accueil */
+    .home-content {
+        position: relative;
+        z-index: 2; /* Met le contenu au-dessus de l'image */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        color: white;
+    }
+
+    .home-content h1 {
+        font-size: 60px;
+        margin: 0;
+        padding: 0;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .home-content p {
+        font-size: 20px;
+        margin: 20px 0;
+        max-width: 600px;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .home-content a {
+        font-size: 18px;
+        color: white;
+        text-transform: uppercase;
+        padding: 10px 30px;
+        background-color: #3498db;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .home-content a:hover {
+        background-color: #2980b9;
+    }
+
+</style>
+<header>
+    <div class="logo">
+        <a href="#accueil"><img src="images/logo1.png" alt="Logo"></a>
+    </div>
+    <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="profil">Profil</a>
+        <a href="#about">À propos</a>
+        <a href='login'>Connexion</a>
+        <div class="animation start-accueil"></div>
+    </nav>
+</header>
+
+<div class="home-pic-container">
+    <img src="images/homePic.jpg" alt="Image d'accueil" class="home-pic">
+    <div class="home-content">
+        <h1>Bienvenue sur notre site</h1>
+        <p>Explorez nos services et découvrez tout ce que nous avons à vous offrir. </p>
+        <a href="#services">En savoir plus</a>
+    </div>
+</div>
+
+<title>Carte</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+{% block css %}{% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
@@ -113,4 +183,3 @@
 
 </body>
 </html>
-
