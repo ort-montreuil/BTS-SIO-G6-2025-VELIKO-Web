@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Confirmer la suppression de votre compte</h2>
+    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+
+    <form action="{{ path('app_profil_suppression', {id: user.id}) }}" method="post">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+        <button type="submit" class="btn btn-danger">Oui, supprimer mon compte</button>
+    </form>
+
+    <a href="{{ path('app_profil') }}" class="btn btn-secondary">Annuler</a>
+
+{% endblock %}
+

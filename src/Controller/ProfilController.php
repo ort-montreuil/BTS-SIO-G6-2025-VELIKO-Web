@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ProfilController extends AbstractController
 {
@@ -64,4 +65,43 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    #[Route('/profil/confirmation-suppression/{id}', name: 'app_profil_confirmation_suppression', methods: ['GET', 'POST'])]
+    public function confirmationSuppression(User $user)
+    {
+        return $this->render('profil/supprimerProfil.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+
+    /**
+     * @throws \Exception
+     */
+    #[Route('/profil/suppression/{id}', name: 'app_profil_suppression', methods: ['POST'])]
+    public function supprimerProfil(User $user, EntityManagerInterface $manager, TokenStorageInterface $tokenStorage)
+    {
+
+        // Générer un mdp
+        $randomNumber = random_int(0, 99999);
+        $randomLettre = chr(random_int(97, 122));
+        $randomMdp = str_shuffle($randomLettre . $randomNumber);
+
+        // Rendre anonyme les champs sensibles
+        $user->setEmail('anonymous' . $randomNumber . '@veliko.local');
+        $user->setNom('anonymous');
+        $user->setPrenom('anonymous');
+        $user->setAdresse('');
+        $user->setPassword(password_hash($randomMdp, PASSWORD_BCRYPT));
+
+        // Sauvegarder les modifications
+        $manager->persist($user);
+        $manager->flush();
+
+
+        // Déconnecter l'utilisateur en supprimant son token
+        $tokenStorage->setToken(null);
+
+        // Rediriger vers la page de connexion après suppression
+        return $this->redirectToRoute('app_login');
+    }
 }
