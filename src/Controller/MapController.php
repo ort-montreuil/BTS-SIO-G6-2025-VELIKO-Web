@@ -18,8 +18,8 @@ class MapController extends AbstractController
 
 
         curl_setopt_array($curl, [
-            CURLOPT_PORT => "9042",
-            CURLOPT_URL => "http://localhost:9042/api/stations",
+            CURLOPT_PORT => $_ENV["API_VELIKO_PORT"],
+            CURLOPT_URL => $_ENV["API_VELIKO_URL"]."/api/stations",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
@@ -46,8 +46,8 @@ class MapController extends AbstractController
 
         $curl2 = curl_init();
         curl_setopt_array($curl2, [
-            CURLOPT_PORT => "9042",
-            CURLOPT_URL => "http://localhost:9042/api/stations/status",
+            CURLOPT_PORT => $_ENV["API_VELIKO_PORT"],
+            CURLOPT_URL => $_ENV["API_VELIKO_URL"]."/api/stations/status",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
