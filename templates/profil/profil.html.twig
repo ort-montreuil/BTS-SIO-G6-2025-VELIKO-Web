@@ -115,6 +115,11 @@
             <button type="button">Modifier mon profil</button>
         </a>
 
+        <!-- Bouton pour rediriger vers la page de modification du mdp -->
+        <a href="{{ path('app_edit_mdp', {id: app.user.id}) }}">
+            <button type="button">Modifier le mot de passe</button>
+        </a>
+
 
             {{ form_end(profilForm) }}
     </div>
