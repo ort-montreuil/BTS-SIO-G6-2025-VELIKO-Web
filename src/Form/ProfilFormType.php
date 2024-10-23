@@ -14,15 +14,7 @@ class ProfilFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('id', HiddenType::class, [
-                'mapped' => true,
-                'label' => false,
-            ])
-            ->add('action', HiddenType::class, [
-                'data' => 'update',
-                'mapped' => false,
-                'label' => false,
-            ])
+
             ->add('nom',null, [
                 'label' => false,
             ])

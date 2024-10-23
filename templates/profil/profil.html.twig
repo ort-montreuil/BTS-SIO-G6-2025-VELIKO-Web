@@ -91,34 +91,32 @@
     <h1>{{ titre }}</h1>
 
     <div class="form-container">
-        <h2>Modifier mes informations</h2>
-        <form method="post" action="">
-            {{ form_errors(profilForm) }}
+        {{ form_errors(profilForm) }}
 
-            {{ form_start(profilForm) }}
+        {{ form_start(profilForm) }}
 
-            {{ form_row(profilForm.id) }}
-            {{ form_row(profilForm.action) }}
+        <p>Nom:</p>
+        {{ form_row(profilForm.nom) }}
+        <p>Prénom:</p>
+        {{ form_row(profilForm.prenom) }}
+        <p>Email:</p>
+        {{ form_row(profilForm.email) }}
+        <p>Ville:</p>
+        {{ form_row(profilForm.ville) }}
+        <p>Code postal:</p>
+        {{ form_row(profilForm.codePostale) }}
+        <p>Adresse:</p>
+        {{ form_row(profilForm.adresse) }}
+        <p>Date de naissance:</p>
+        {{ form_row(profilForm.dateNaissance) }}
 
-            <p>Nom:</p>
-            {{ form_row(profilForm.nom) }}
-            <p>Prénom:</p>
-            {{ form_row(profilForm.prenom) }}
-            <p>Email:</p>
-            {{ form_row(profilForm.email) }}
-            <p>Ville:</p>
-            {{ form_row(profilForm.ville) }}
-            <p>Code postal:</p>
-            {{ form_row(profilForm.codePostale) }}
-            <p>Adresse:</p>
-            {{ form_row(profilForm.adresse) }}
-            <p>Date de naissance:</p>
-            {{ form_row(profilForm.dateNaissance) }}
+        <!-- Bouton pour rediriger vers la page de modification du profil-->
+        <a href="{{ path('app_profil_modification', {id: app.user.id}) }}">
+            <button type="button">Modifier mon profil</button>
+        </a>
 
-            <button type="submit" name="action" value="update">Valider les modifications</button>
 
             {{ form_end(profilForm) }}
-        </form>
     </div>
 
 

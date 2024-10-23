@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ titre }}</h1>
+
+    <div class="form-container">
+        <h2>Modifier mes informations</h2>
+
+        {{ form_start(form) }}
+
+        <button type="submit">Modifier le profil</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
