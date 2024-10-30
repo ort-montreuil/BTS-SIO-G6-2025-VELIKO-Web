@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HelloController extends AbstractController
 {
-    #[Route('/accueil', name: 'app_accueil' )]
+    #[Route('/', name: 'app_accueil' )]
 
     public function hello(): Response{
 
