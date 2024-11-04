@@ -175,13 +175,13 @@
     </div>
     <nav>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="#accueil">Accueil</a>
+            <a href="{{ path('app_accueil') }}">Accueil</a>
             <a href="profil">Profil</a>
             <a href="#about">À propos</a>
             <a href="{{ path('app_logout') }}">Se déconnecter</a>
             <div class="animation start-accueil"></div>
         {% else %}
-            <a href="#accueil">Accueil</a>
+            <a href="{{ path('app_accueil') }}">Accueil</a>
             <a href="register">Inscription</a>
             <a href="#about">À propos</a>
             <a href='login'>Connexion</a>
