@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Station;
 use App\Entity\StationUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,6 +15,37 @@ class StationUserRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, StationUser::class);
+    }
+
+
+    public function findStationsByUserId(int $userId)
+    {
+        return $this->createQueryBuilder('su')
+            ->select("su.id_station")
+            ->andWhere('su.id_user  = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getArrayResult();
+    }
+    public function findStationNameById(int $stationId)
+    {
+        return $this->createQueryBuilder('su')
+            ->select("s.name")
+            ->innerJoin(Station::class, "s", 'WITH', "s.station_id = su.id_station")
+            ->andWhere("su.id_station = :stationId")
+            ->setParameter("stationId", $stationId)
+            ->getQuery()
+            ->getResult();
+
+    }
+    public function deleteStationByStationId(int $stationId)
+    {
+        return $this->createQueryBuilder('su')
+            ->delete()
+            ->andWhere("su.idStation = :stationId")
+            ->setParameter("stationId", $stationId)
+            ->getQuery()
+            ->execute();
     }
 
     //    /**
