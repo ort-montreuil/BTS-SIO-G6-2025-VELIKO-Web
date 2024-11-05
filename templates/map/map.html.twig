@@ -145,7 +145,8 @@
 
             var marker = L.marker([{{ station.lat }}, {{ station.lon }}], {icon: customIcon});
 
-            var popupContent = '<div class="leaflet-popup-content fixed-popup">' +  // Added class here
+            var popupContent =
+                '<div class="leaflet-popup-content fixed-popup">' +
                 '<h3>{{ station.nom }}</h3>' +
                 '<div class="station-info">' +
                 '<div class="bike-info">' +
@@ -160,18 +161,18 @@
                 '</div>' +
                 '</div>' +
                 '<p>Vélos disponibles : {{ station.velodispo }}</p>' +
+                    {% if app.user %}
+                '<form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post">' +
+                '<button type="submit">Mettre en favori</button>' +
+                '</form>' +
+                    {% endif %}
                 '</div>';
 
             marker.bindPopup(popupContent); // Simply bind the popup
 
-            // Add hover functionality for the popup
-            marker.on('mouseover', function() {
-                this.openPopup();
-            });
 
-            marker.on('mouseout', function() {
-                this.closePopup();
-            });
+
+
 
             markers.addLayer(marker); // Add each marker to the marker cluster group
             {% endfor %}

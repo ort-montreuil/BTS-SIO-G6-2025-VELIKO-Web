@@ -77,4 +77,34 @@ class MesStationsController extends AbstractController
 
     }
 
+    #[Route('/station/add_favorite/{id}', name: 'app_add_favorite', methods: ['POST'])]
+    public function addFavorite(int $id): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $userId = $user->getId();
+
+        // Vérifier si la station est déjà dans les favoris de l'utilisateur
+        $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
+        $existingFavorite = $stationUserRepository->findOneBy([
+            'id_user' => $userId,
+            'id_station' => $id,
+        ]);
+
+        if ($existingFavorite) {
+            $this->addFlash('info', 'Station déjà dans les favoris.');
+        } else {
+            $stationUser = new StationUser();
+            $stationUser->setIdUser($userId);
+            $stationUser->setIdStation($id);
+
+            $this->entityManager->persist($stationUser);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Station ajoutée aux favoris.');
+        }
+
+        return $this->redirectToRoute('app_mes_stations');
+    }
+
 }
