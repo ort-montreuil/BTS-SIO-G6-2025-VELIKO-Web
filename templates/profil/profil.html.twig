@@ -96,19 +96,21 @@
         {{ form_start(profilForm) }}
 
         <p>Nom:</p>
-        {{ form_row(profilForm.nom) }}
+        {{ form_row(profilForm.nom, {'attr': {'readonly': 'readonly'}}) }}
         <p>Prénom:</p>
-        {{ form_row(profilForm.prenom) }}
+        {{ form_row(profilForm.prenom, {'attr': {'readonly': 'readonly'}}) }}
         <p>Email:</p>
-        {{ form_row(profilForm.email) }}
+        {{ form_row(profilForm.email, {'attr': {'readonly': 'readonly'}}) }}
         <p>Ville:</p>
-        {{ form_row(profilForm.ville) }}
+        {{ form_row(profilForm.ville, {'attr': {'readonly': 'readonly'}}) }}
         <p>Code postal:</p>
-        {{ form_row(profilForm.codePostale) }}
+        {{ form_row(profilForm.codePostale, {'attr': {'readonly': 'readonly'}}) }}
         <p>Adresse:</p>
-        {{ form_row(profilForm.adresse) }}
+        {{ form_row(profilForm.adresse, {'attr': {'readonly': 'readonly'}}) }}
         <p>Date de naissance:</p>
-        {{ form_row(profilForm.dateNaissance) }}
+        {{ form_row(profilForm.dateNaissance, {'attr': {'readonly': 'readonly'}}) }}
+
+        <br>
 
         <!-- Bouton pour rediriger vers la page de modification du profil-->
         <a href="{{ path('app_profil_modification', {id: app.user.id}) }}">
