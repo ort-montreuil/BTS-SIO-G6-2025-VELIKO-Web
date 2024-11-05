@@ -72,6 +72,13 @@
             color: #666; /* Couleur du texte */
         }
 
+        .fixed-popup {
+            width: 250px;  /* Set a fixed width */
+            height: auto;  /* Allow height to adjust based on content */
+            max-height: 300px;  /* Optional: set a maximum height */
+            overflow-y: auto;  /* Enable scrolling if content exceeds max height */
+        }
+
 
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
@@ -138,7 +145,7 @@
 
             var marker = L.marker([{{ station.lat }}, {{ station.lon }}], {icon: customIcon});
 
-            var popupContent = '<div class="leaflet-popup-content">' +
+            var popupContent = '<div class="leaflet-popup-content fixed-popup">' +  // Added class here
                 '<h3>{{ station.nom }}</h3>' +
                 '<div class="station-info">' +
                 '<div class="bike-info">' +
