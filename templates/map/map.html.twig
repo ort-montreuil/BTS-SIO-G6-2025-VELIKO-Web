@@ -78,6 +78,20 @@
             max-height: 300px;  /* Optional: set a maximum height */
             overflow-y: auto;  /* Enable scrolling if content exceeds max height */
         }
+        .favorite-button {
+            background-color: #007bff; /* Couleur de fond */
+            color: white; /* Couleur du texte */
+            border: none; /* Suppression de la bordure */
+            border-radius: 5px; /* Coins arrondis */
+            padding: 10px 15px; /* Espacement intérieur */
+            font-size: 14px; /* Taille de la police */
+            cursor: pointer; /* Curseur pointer */
+            transition: background-color 0.3s; /* Effet de transition */
+        }
+
+        .favorite-button:hover {
+            background-color: #0056b3; /* Couleur de fond au survol */
+        }
 
 
     </style>
@@ -162,8 +176,8 @@
                 '</div>' +
                 '<p>Vélos disponibles : {{ station.velodispo }}</p>' +
                     {% if app.user %}
-                '<form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post">' +
-                '<button type="submit">Mettre en favori</button>' +
+                '<form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post" style="text-align: center;">' +
+                '<button type="submit" class="favorite-button">Mettre en favori</button>' +
                 '</form>' +
                     {% endif %}
                 '</div>';
