@@ -83,8 +83,9 @@
                                                 <h3>{{ station.name }}</h3>
 {#                                                <p>{{ station.description }}</p> <!-- Optionnel: Ajoutez une description si disponible -->#}
                                         </div>
-                                        <button class="favorite-btn">Retirer des favoris</button>
-                                </div>
+                                        <form action="{{ path('app_station_delete', {'id': station.id}) }}" method="post">
+                                                <button type="submit" class="favorite-btn">Retirer des favoris</button>
+                                        </form>                                </div>
                         {% endfor %}
                 </div>
         </div>

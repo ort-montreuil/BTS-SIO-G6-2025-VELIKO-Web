@@ -42,7 +42,7 @@ class StationUserRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('su')
             ->delete()
-            ->andWhere("su.idStation = :stationId")
+            ->andWhere("su.id_station = :stationId")
             ->setParameter("stationId", $stationId)
             ->getQuery()
             ->execute();
