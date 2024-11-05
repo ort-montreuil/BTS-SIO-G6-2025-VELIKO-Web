@@ -1,139 +1,204 @@
 {% extends 'base.html.twig' %}
 
-{% block css %}
+{% block cssProfil %}
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        .delete-button {
+            background-color: #dc3545; /* Bootstrap danger color */
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
         }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-top: 20px;
+        .delete-button:hover {
+            background-color: #c82333; /* Darker shade for hover */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120vh;
         }
 
         .form-container {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .form-container h2 {
-            font-size: 18px;
+        h1 {
+            font-size: 1.8rem;
+            color: #007bff;
+            text-align: center;
             margin-bottom: 10px;
-            color: #113f67;
+            font-weight: bold;
         }
 
         form {
-            margin-bottom: 20px;
+            width: 100%;
         }
 
-        form p {
-            margin: 0;
-            padding: 5px 0;
-            font-weight: bold;
+        label {
+            font-size: 0.9rem;
             color: #555;
+            margin-bottom: 5px;
         }
 
-        form input[type="text"],
-        form input[type="number"],
-        form input[type="date"],
-        form input[type="password"],
-        form button {
+        input, select, textarea {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+            transition: all 0.2s;
         }
 
-        form input[type="text"]:focus,
-        form input[type="number"]:focus,
-        form input[type="date"]:focus,
-        form input[type="password"]:focus {
-            border-color: #113f67;
-            outline: none;
+        input:focus, select:focus, textarea:focus {
+            border-color: #007bff;
+            background-color: #fff;
         }
 
-        form button {
-            background-color: #113f67;
-            color: white;
+        /* Flex layout for rows */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .form-row .field {
+            flex: 1;
+        }
+
+        .dob-row .field {
+            flex: 1;
+            width: 33%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
             border: none;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 1rem;
             transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
         }
 
-        form button:hover {
-            background-color: #87c0cd;
+        button:hover {
+            background-color: #0056b3;
         }
 
-        .alert {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 10px;
-            color: #721c24;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
+        .form-error {
+            color: #ff3860;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
         }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .dob-row {
+                flex-direction: column;
+            }
+        }
+
     </style>
 {% endblock %}
 
 {% block body %}
-    <h1>{{ titre }}</h1>
 
     <div class="form-container">
-        {{ form_errors(profilForm) }}
+        <h1>Mon Profil</h1>
 
-        {{ form_start(profilForm) }}
+        <div class="form-error">
+            {{ form_errors(profilForm) }}
+        </div>
 
-        <p>Nom:</p>
-        {{ form_row(profilForm.nom, {'attr': {'readonly': 'readonly'}}) }}
-        <p>Prénom:</p>
-        {{ form_row(profilForm.prenom, {'attr': {'readonly': 'readonly'}}) }}
+        {{ form_start(profilForm, {'attr': {'class': 'form'}}) }}
+
+        <div class="form-row">
+            <div class="field">
+                <p>Nom:</p>
+                {{ form_row(profilForm.nom, {'attr': {'readonly': 'readonly', 'class': 'input-field'}}) }}
+            </div>
+            <div class="field">
+                <p>Prénom:</p>
+                {{ form_row(profilForm.prenom, {'attr': {'readonly': 'readonly', 'class': 'input-field'}}) }}
+            </div>
+        </div>
+
         <p>Email:</p>
-        {{ form_row(profilForm.email, {'attr': {'readonly': 'readonly'}}) }}
+        {{ form_row(profilForm.email, {'attr': {'readonly': 'readonly', 'class': 'input-field'}}) }}
+
         <p>Ville:</p>
-        {{ form_row(profilForm.ville, {'attr': {'readonly': 'readonly'}}) }}
+        {{ form_row(profilForm.ville, {'attr': {'readonly': 'readonly', 'class': 'input-field'}}) }}
+
         <p>Code postal:</p>
-        {{ form_row(profilForm.codePostale, {'attr': {'readonly': 'readonly'}}) }}
+        {{ form_row(profilForm.codePostale, {'attr': {'readonly': 'readonly', 'class': 'input-field'}}) }}
+
         <p>Adresse:</p>
-        {{ form_row(profilForm.adresse, {'attr': {'readonly': 'readonly'}}) }}
+        {{ form_row(profilForm.adresse, {'attr': {'readonly': 'readonly', 'class': 'input-field'}}) }}
+
         <p>Date de naissance:</p>
-        {{ form_row(profilForm.dateNaissance, {'attr': {'readonly': 'readonly'}}) }}
+        <div class="form-row dob-row">
+            <div class="field">
+                {{ form_row(profilForm.dateNaissance.day, { 'label': 'Jour', 'attr': {'disabled': 'disabled', 'class': 'input-field'}}) }}
+            </div>
+            <div class="field">
+                {{ form_row(profilForm.dateNaissance.month, { 'label': 'Mois', 'attr': {'disabled': 'disabled', 'class': 'input-field'}}) }}
+            </div>
+            <div class="field">
+                {{ form_row(profilForm.dateNaissance.year, { 'label': 'Année', 'attr': {'disabled': 'disabled', 'class': 'input-field'}}) }}
+            </div>
+        </div>
 
         <br>
 
-        <!-- Bouton pour rediriger vers la page de modification du profil-->
+        <!-- Button links with class="button" for styling -->
         <a href="{{ path('app_profil_modification', {id: app.user.id}) }}">
-            <button type="button">Modifier mon profil</button>
+            <button type="button" class="button">Modifier mon profil</button>
         </a>
-
-        <!-- Bouton pour rediriger vers la page de modification du mdp -->
         <a href="{{ path('app_edit_mdp', {id: app.user.id}) }}">
-            <button type="button">Modifier le mot de passe</button>
+            <button type="button" class="button">Modifier le mot de passe</button>
         </a>
-
-        <a href="{{ path('app_profil_confirmation_suppression', {id: app.user.id}) }}">
-            <button type="button" class="btn btn-danger">Supprimer mon compte</button>
-        </a>
-
-        <!-- Bouton pour rediriger vers la page des stations -->
         <a href="{{ path('app_mes_stations') }}">
-            <button type="button">Mes stations favorites</button>
+            <button type="button" class="button">Mes stations favorites</button>
         </a>
+        <a href="{{ path('app_profil_confirmation_suppression', {id: app.user.id}) }}">
+            <button type="button" class="button btn btn-danger delete-button">Supprimer mon compte</button>
+        </a>
+
 
         {{ form_end(profilForm) }}
     </div>
-
 
 {% endblock %}
 
