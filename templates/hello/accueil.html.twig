@@ -47,6 +47,68 @@
         width: 80px;
     }
 
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    /* Style pour le menu de navigation */
+    nav {
+        position: relative;
+        width: 488px; /* Ajuste selon tes besoins */
+        height: 50px;
+        background-color: #113f67;
+        border-radius: 8px;
+        font-size: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    nav a {
+        line-height: 50px;
+        height: 100%;
+        font-size: 15px;
+        display: inline-block;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        position: relative;
+        z-index: 1;
+        padding: 0 15px;
+        cursor: pointer;
+    }
+
+    /* Animation Lavalamp */
+    nav .animation {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        z-index: 0;
+        transition: all 0.5s ease;
+        border-radius: 8px;
+    }
+
+    nav .start-accueil, a:nth-child(1):hover~.animation {
+        width: 100px;
+        left: 0;
+        background-color: #1abc9c;
+    }
+
+    nav .start-profil, a:nth-child(2):hover~.animation {
+        width: 100px;
+        left: 100px;
+        background-color: #e74c3c;
+    }
+
+    nav .start-about, a:nth-child(3):hover~.animation {
+        width: 100px;
+        left: 200px;
+        background-color: #3498db;
+    }
+
+    nav .start-deconnexion, a:nth-child(4):hover~.animation {
+        width: 160px;
+        left: 324px;
+        background-color: #e67e22;
+    }
+    {% else %}
     /* Style pour le menu de navigation (inchangé) */
     nav {
         position: relative;
@@ -107,6 +169,7 @@
         left: 380px;
         background-color: #e67e22;
     }
+    {% endif %}
 
     /* Style pour l'image en arrière-plan */
     .home-pic-container {
