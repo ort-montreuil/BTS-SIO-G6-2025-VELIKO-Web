@@ -1,0 +1,8 @@
+<h1>Activez votre compte</h1>
+<p>Bonjour {{ user.nom }},</p>
+<p>Veuillez valider votre adresse e-mail en cliquant sur le lien ci-dessous :</p>
+<p>
+    <a href="{{ absolute_url(path('verify_user', {token: verificationToken})) }}">
+        Activer mon compte
+    </a>
+</p>
