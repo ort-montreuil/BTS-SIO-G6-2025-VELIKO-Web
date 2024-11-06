@@ -168,12 +168,43 @@
         background-color: #1abc9c;
     }
 
+
+    .bike-animation {
+        position: absolute;
+        top: -2px; /* Ajuste pour centrer le vélo dans la nav */
+        left: -50px; /* Débute légèrement à gauche */
+        font-size: 24px; /* Taille du vélo */
+        animation: bikeMove 10s linear infinite;
+        z-index: 1;
+    }
+
+    /* Animation de déplacement de droite à gauche */
+    @keyframes bikeMove {
+        0% {
+            left: 65px; /* Commence en dehors de la nav */
+        }
+        50% {
+            left: calc(60% - 50px); /* Traverse toute la nav */
+        }
+        100% {
+            left: 65px; /* Revient au point de départ */
+        }
+    }
+
 </style>
 <header>
     <div class="logo">
         <a href="{{ path('app_accueil') }}"><img src="images/logo1.png" alt="Logo"></a>
+
+        <!-- Vélo animé -->
+        <!-- Vélo animé -->
+        <div class="bike-animation">
+            <img src="AnimatedIcons/bike-icon-right.gif" alt="Bike Icon" class="bike-icon">
+        </div>
     </div>
+
     <nav>
+
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <a href="{{ path('app_accueil') }}">Accueil</a>
             <a href="profil">Profil</a>
@@ -187,7 +218,10 @@
             <a href='login'>Connexion</a>
             <div class="animation start-accueil"></div>
         {% endif %}
+
     </nav>
+
+
 </header>
 
 <div class="home-pic-container">
