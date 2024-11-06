@@ -1,24 +1,43 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Modifier mes informations{% endblock %}
+
 {% block styles %}
     <style>
-        /* Center the form container on the page */
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
         body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f1f3f5;
+            height: 120vh;
         }
 
-        /* Form container styling */
         .form-container {
             background-color: #ffffff;
             padding: 50px;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            max-width: 600px; /* Increase max width for a larger form */
+            max-width: 400px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -29,110 +48,131 @@
             font-size: 1.8rem;
             color: #007bff;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: bold;
         }
 
-        form {
+        .form {
             width: 100%;
-        }
-
-        p {
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 5px;
         }
 
         .form-row {
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            gap: 30px;
+            width: 100%;
         }
 
-        .field {
+        .form-row .field {
             flex: 1;
         }
 
-        .dob-row {
-            gap: 5px;
+        .dob-row .field {
+            flex: 1;
+            width: 33%;
         }
 
         .input-field {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
+            margin-bottom: 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+            transition: all 0.2s;
         }
 
-        .button {
+        .input-field:focus {
+            border-color: #007bff;
+            background-color: #fff;
+        }
+
+        button {
             background-color: #007bff;
-            color: white;
-            border: none;
+            color: #fff;
             padding: 12px;
+            border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s ease;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
-        .button:hover {
+        button:hover {
             background-color: #0056b3;
+        }
+
+        .form-error {
+            color: #ff3860;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .dob-row {
+                flex-direction: column;
+            }
         }
     </style>
 {% endblock %}
 
-{% block title %}Modifier mes informations
-{% endblock %}
-
-
 {% block body %}
-
     <div class="form-container">
         <h2>Modifier mes informations</h2>
 
         {{ form_start(form, {'attr': {'class': 'form'}}) }}
-{{ form_errors(form) }}
-<div class="form-row">
-    <div class="field">
-        <p>Nom:</p>
-        {{ form_row(form.nom, {'attr': {'class': 'input-field'}}) }}
-    </div>
-    <div class="field">
-        <p>Prénom:</p>
-        {{ form_row(form.prenom, {'attr': {'class': 'input-field'}}) }}
-    </div>
-</div>
+        {{ form_errors(form) }}
 
-<p>Email:</p>
-{{ form_row(form.email, {'attr': {'class': 'input-field'}}) }}
+        <div class="form-row">
+            <div class="field">
+                <p>Nom:</p>
+                {{ form_row(form.nom, {'attr': {'class': 'input-field'}}) }}
+            </div>
+            <div class="field">
+                <p>Prénom:</p>
+                {{ form_row(form.prenom, {'attr': {'class': 'input-field'}}) }}
+            </div>
+        </div>
 
-<p>Ville:</p>
-{{ form_row(form.ville, {'attr': {'class': 'input-field'}}) }}
+        <p>Email:</p>
+        {{ form_row(form.email, {'attr': {'class': 'input-field'}}) }}
 
-<p>Code postal:</p>
-{{ form_row(form.codePostale, {'attr': {'class': 'input-field'}}) }}
+        <p>Ville:</p>
+        {{ form_row(form.ville, {'attr': {'class': 'input-field'}}) }}
 
-<p>Adresse:</p>
-{{ form_row(form.adresse, {'attr': {'class': 'input-field'}}) }}
+        <p>Code postal:</p>
+        {{ form_row(form.codePostale, {'attr': {'class': 'input-field'}}) }}
 
-<p>Date de naissance:</p>
-<div class="form-row dob-row">
-    <div class="field">
-        {{ form_row(form.dateNaissance.day, { 'label': 'Jour', 'attr': {'class': 'input-field'}}) }}
-    </div>
-    <div class="field">
-        {{ form_row(form.dateNaissance.month, { 'label': 'Mois', 'attr': {'class': 'input-field'}}) }}
-    </div>
-    <div class="field">
-        {{ form_row(form.dateNaissance.year, { 'label': 'Année', 'attr': {'class': 'input-field'}}) }}
-    </div>
-</div>
+        <p>Adresse:</p>
+        {{ form_row(form.adresse, {'attr': {'class': 'input-field'}}) }}
 
-<br>
-<button type="submit" class="button">Modifier le profil</button>
-{{ form_end(form) }}
+        <p>Date de naissance:</p>
+        <div class="form-row dob-row">
+            <div class="field">
+                {{ form_row(form.dateNaissance.day, { 'label': 'Jour', 'attr': {'class': 'input-field'}}) }}
+            </div>
+            <div class="field">
+                {{ form_row(form.dateNaissance.month, { 'label': 'Mois', 'attr': {'class': 'input-field'}}) }}
+            </div>
+            <div class="field">
+                {{ form_row(form.dateNaissance.year, { 'label': 'Année', 'attr': {'class': 'input-field'}}) }}
+            </div>
+        </div>
+
+        <br>
+        <button type="submit" class="button">Modifier le profil</button>
+        {{ form_end(form) }}
         <br>
     </div>
 {% endblock %}
