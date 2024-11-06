@@ -33,6 +33,7 @@
         }
 
         .form-container {
+            position: relative;
             background-color: #ffffff;
             padding: 50px;
             border-radius: 12px;
@@ -42,6 +43,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
         }
 
         h2 {
@@ -130,9 +137,9 @@
 {% block body %}
     <div class="form-container">
 
-        <a href="javascript:history.back()">
-    <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
-</a>
+        <a href="javascript:history.back()" class="back-button">
+            <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
+        </a>
 
         <h2>Modifier mes informations</h2>
 

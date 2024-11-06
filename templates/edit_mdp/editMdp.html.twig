@@ -1,5 +1,13 @@
 {% block styles %}
     <style>
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+        }
+
         .delete-button {
             background-color: #dc3545;
             color: white;
@@ -18,7 +26,7 @@
 
         .button-container {
             display: flex;
-            justify-content: center; /* Center the button */
+            justify-content: center;
             width: 100%;
         }
 
@@ -43,6 +51,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
         h2 {
@@ -112,7 +121,13 @@
 
 {% block body %}
     <div class="form-container">
+        <!-- Back button in top-left corner -->
+        <a href="javascript:history.back()" class="back-button">
+            <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
+        </a>
+
         <h2>Modifier mon mot de passe</h2>
+
         {{ form_start(form) }}
 
         {% for message in app.flashes('warning') %}
@@ -122,7 +137,6 @@
         {% endfor %}
 
         {{ form(form) }}
-
 
         {{ form_end(form) }}
     </div>

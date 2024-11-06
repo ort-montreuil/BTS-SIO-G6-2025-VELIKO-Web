@@ -2,19 +2,30 @@
 
 {% block styles %}
         <style>
-                /* Styles pour la liste des stations favorites */
+                body {
+                        background-color: #f0f2f5;
+                }
+                /* Other styles */
                 .favorites-container {
                         max-width: 800px;
                         margin: 0 auto;
                         padding: 20px;
-                        background-color: #f8f9fa;
+                        background-color: #ffffff;
                         border-radius: 8px;
                         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
                         font-family: Arial, sans-serif;
+                        position: relative; /* Added to position the back button */
                 }
 
-                .favorites-container h2
-                {
+                .back-button {
+                        position: absolute;
+                        top: 20px;
+                        left: 20px;
+                        width: 30px;
+                        height: 30px;
+                }
+
+                .favorites-container h2 {
                         font-size: 24px;
                         color: #333;
                         text-align: center;
@@ -76,17 +87,22 @@
 
 {% block body %}
         <div class="favorites-container">
-                <h2>Mes Stations Favorites</h2>
+                <!-- Back button in top-left corner -->
+                <a href="javascript:history.back()" class="back-button">
+                        <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
+                </a>
+
+               <h2 style="color: #007bff;">Mes Stations Favorites</h2>
                 <div class="station-list">
                         {% for station in station_names %}
                                 <div class="station-item">
                                         <div class="station-info">
                                                 <h3>{{ station.name }}</h3>
-{#                                                <p>{{ station.description }}</p> <!-- Optionnel: Ajoutez une description si disponible -->#}
                                         </div>
                                         <form action="{{ path('app_station_delete', {'id': station.id}) }}" method="post">
                                                 <button type="submit" class="favorite-btn">Retirer des favoris</button>
-                                        </form>                                </div>
+                                        </form>
+                                </div>
                         {% endfor %}
                 </div>
         </div>
