@@ -94,6 +94,9 @@
         }
 
 
+
+
+
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
@@ -212,18 +215,21 @@
 
                     // Définir l'icône personnalisée pour l'indicateur de position
                     var customIcon = L.icon({
-                        iconUrl: 'images/icon.png', // Spécifiez le chemin de votre icône personnalisée
-                        iconSize: [30, 30], // Taille de l'icône
-                        iconAnchor: [16, 32] // Point d'ancrage de l'icône
+                        iconUrl: 'AnimatedIcons/positionUtilisateur.gif', // Spécifiez le chemin de votre icône personnalisée
+                        iconSize: [60, 60], // Taille de l'icône
+                        iconAnchor: [30, 60], // Point d'ancrage de l'icône
+                        popupAnchor: [0, -60] // Point d'ancrage du popup
                     });
 
-                    // Ajouter un marqueur à la position de l'utilisateur avec l'icône personnalisée
                     if (!macarte.marker) {
                         macarte.marker = L.marker([lat, lon], {icon: customIcon}).addTo(macarte);
                         macarte.marker.bindPopup("Vous êtes ici");
-                    }
-                    else {
-                        macarte.marker.setLatLng([lat, lon]).update();
+                    } else {
+                        const currentPos = macarte.marker.getLatLng();
+                        // Only update if the position is different
+                        if (currentPos.lat !== lat || currentPos.lng !== lon) {
+                            macarte.marker.setLatLng([lat, lon]);
+                        }
                     }
                 });
             } else {
