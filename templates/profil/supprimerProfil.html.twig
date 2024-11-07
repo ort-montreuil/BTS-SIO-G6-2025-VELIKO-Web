@@ -68,6 +68,34 @@
         .btn-secondary:hover {
             background-color: #5a6268;
         }
+
+
+        .bin-icon {
+            position: absolute;
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            font-size: 50px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Shrink and slide animation for the container */
+        .shrink-slide {
+            animation: shrinkSlideToBin 0.7s forwards;
+        }
+
+        @keyframes shrinkSlide {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(200px, 100px) scale(0.2); /* Adjust to match bin position */
+                opacity: 0;
+            }
+        }
+
     </style>
 {% endblock %}
 
@@ -88,4 +116,63 @@
         <!-- Cancel button -->
         <a href="{{ path('app_profil') }}" class="btn btn-secondary">Annuler</a>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const deleteButton = document.querySelector(".btn-danger");
+            const confirmationContainer = document.querySelector(".confirmation-container");
+            const binIcon = document.createElement("div");
+
+            // Create the bin icon element
+            binIcon.classList.add("bin-icon");
+            binIcon.innerHTML = "🗑️"; // Use an emoji or an image here
+            document.body.appendChild(binIcon);
+
+            // Calculate and set keyframe animation to move confirmation container towards the bin icon
+            deleteButton.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent immediate form submission
+
+                // Show the bin icon
+                binIcon.style.opacity = "1";
+
+                // Get the positions of the container and the bin icon
+                const containerRect = confirmationContainer.getBoundingClientRect();
+                const binRect = binIcon.getBoundingClientRect();
+
+                // Calculate the translate values to move container towards the bin
+                const translateX = binRect.left - containerRect.left;
+                const translateY = binRect.top - containerRect.top;
+
+                // Define the animation with these calculated values
+                const keyframes = `
+                @keyframes shrinkSlideToBin {
+                    0% {
+                        transform: translate(0, 0) scale(1);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(${translateX}px, ${translateY}px) scale(0.2);
+                        opacity: 0;
+                    }
+                }
+            `;
+
+                // Inject the keyframes into the document
+                const styleSheet = document.createElement("style");
+                styleSheet.type = "text/css";
+                styleSheet.innerHTML = keyframes;
+                document.head.appendChild(styleSheet);
+
+                // Start the animation
+                confirmationContainer.classList.add("shrink-slide");
+
+                // Submit the form after the animation completes
+                setTimeout(() => {
+                    deleteButton.closest("form").submit();
+                }, 700); // Match with animation duration
+            });
+        });
+    </script>
 {% endblock %}
