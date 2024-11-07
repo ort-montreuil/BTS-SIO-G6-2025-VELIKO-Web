@@ -254,6 +254,20 @@
         }
     }
 
+    /* Fade-out animation */
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    .page-exit {
+        animation: fadeOut 1s forwards; /* Play the fadeOut animation over 1 second */
+    }
+
 </style>
 <header>
     <div class="logo">
@@ -295,6 +309,26 @@
         <a href="{{ path('app_map') }}">Voir la carte</a>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Select the "Voir la carte" button
+        const viewMapButton = document.querySelector(".home-content a");
+
+        // Add click event listener to the button
+        viewMapButton.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the immediate navigation
+
+            // Add the fade-out animation class to the body
+            document.body.classList.add("page-exit");
+
+            // Wait for the animation to complete (1 second) then navigate
+            setTimeout(function() {
+                window.location.href = viewMapButton.getAttribute("href");
+            }, 1000); // Match the duration of the fadeOut animation
+        });
+    });
+</script>
 
 <title>Carte</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
