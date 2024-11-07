@@ -6,13 +6,13 @@
     <div class="form-container">
         <h2>Envoyer un email de réinitialisation</h2>
 
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
+{#        {% for message in app.flashes('success') %}#}
+{#            <div class="alert alert-success">{{ message }}</div>#}
+{#        {% endfor %}#}
 
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
+{#        {% for message in app.flashes('error') %}#}
+{#            <div class="alert alert-danger">{{ message }}</div>#}
+{#        {% endfor %}#}
 
         <form action="{{ path('app_emailMdp') }}" method="post">
             <input type="email" name="email" placeholder="Veuillez entrer votre email" required>

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 class EditMdpFormType extends AbstractType
 {
@@ -41,6 +42,11 @@ class EditMdpFormType extends AbstractType
                         new Assert\Length([
                             'min' => 8,
                             'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères',
+                            'max' => 4096,
+                        ]),
+                        new PasswordStrength([
+                            'minScore' => PasswordStrength::STRENGTH_WEAK,
+                            'message' => 'Votre mot de passe doit être fort: veuillez inclure des majuscules, des minuscules, des chiffres et des caractères spéciaux.',
                         ]),
                     ],
                 ],

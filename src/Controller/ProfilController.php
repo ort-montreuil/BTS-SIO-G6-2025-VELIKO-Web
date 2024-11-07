@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ModifProfilFormType;
 use App\Form\ProfilFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +42,7 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('app_profil');
         }
 
-        $form = $this->createForm(ProfilFormType::class, $user);
+        $form = $this->createForm(ModifProfilFormType::class, $user);
         $form->handleRequest($request);
 
 
@@ -91,6 +92,8 @@ class ProfilController extends AbstractController
         $user->setNom('anonymous');
         $user->setPrenom('anonymous');
         $user->setAdresse('');
+        $user->setVerified(false);
+        $user->setVerificationToken(null);
         $user->setPassword(password_hash($randomMdp, PASSWORD_BCRYPT));
 
         // Sauvegarder les modifications
@@ -100,6 +103,7 @@ class ProfilController extends AbstractController
 
         // Déconnecter l'utilisateur en supprimant son token
         $tokenStorage->setToken(null);
+
 
         // Rediriger vers la page de connexion après suppression
         return $this->redirectToRoute('app_login');
