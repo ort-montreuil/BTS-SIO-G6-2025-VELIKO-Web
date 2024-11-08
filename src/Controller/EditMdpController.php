@@ -128,6 +128,11 @@ class EditMdpController extends AbstractController
     #[Route('/renseignerEmail', name: 'app_renseignerEmail', methods: ['GET' , 'POST'])]
     public function renseignerEmail(): Response
     {
+        //Bloquer l'accès à la page de connexion si l'utilisateur est déjà connecté
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_profil');
+        }
+
         $this->redirectToRoute('app_login');
 
         //Afficher la page où l'utilisateur renseignera sons email pour reinitialiser son mdp
@@ -139,6 +144,11 @@ class EditMdpController extends AbstractController
     #[Route('/edit/mdpOublie/{token}', name: 'app_edit_mdpOublie', methods: ['GET', 'POST'])]
     public function modificationMdpOublie(string $token, EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $hasher): Response
     {
+        //Bloquer l'accès à la page de connexion si l'utilisateur est déjà connecté
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_profil');
+        }
+
         // Vérifiez si le token est valide
         $user = $entityManager->getRepository(User::class)->findOneBy(['verificationToken' => $token]);
 
