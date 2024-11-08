@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\StationUser;
+use Doctrine\ORM\EntityManagerInterface;
 use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,6 +11,15 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MapController extends AbstractController
 {
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+
     #[Route('/map', name: 'app_map')]
 
     public function execute(): Response
@@ -93,9 +104,25 @@ class MapController extends AbstractController
         }
 
 
+
+        $user = $this->getUser();
+        $favoriteStationIds = [];
+
+        if ($user) {
+            $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
+
+            // Obtenir les stations favorites de l'utilisateur
+            $favorites = $stationUserRepository->findBy(['id_user' => $user->getId()]);
+            $favoriteStationIds = array_map(function ($favorite) {
+                return $favorite->getIdStation();
+            }, $favorites);
+        }
+
+
         return $this->render('map/map.html.twig', [
             "titre"   => 'MapController',
-            "stations" => $stations
+            "stations" => $stations,
+            "favoriteStationIds" => $favoriteStationIds
 
         ]);
     }
