@@ -107,6 +107,10 @@
                 </div>
             {% endif %}
 
+            {% for message in app.flashes('success') %}
+                <div > {{ message }}</div>
+            {% endfor %}
+
             <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
 
             <label for="username">Email</label>

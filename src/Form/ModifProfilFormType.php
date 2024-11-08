@@ -31,8 +31,10 @@ class ModifProfilFormType extends AbstractType
                 'label' => false,
             ])
             ->add('dateNaissance', DateType::class, [
+                'widget' => 'choice', // Use dropdowns for date selection
                 'format' => 'yyyy-MM-dd',
-                'label' => false,
+                'years' => range(1950, date('Y')), // Set a 100-year range, starting from today
+                'label' => 'Date de naissance', // Customize label if needed
             ]);
 
     }

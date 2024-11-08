@@ -19,17 +19,14 @@ class HelloController extends AbstractController
             ]);
     }
 
-    #[Route('/coucou')]
+    #[Route('/a/propos}', name: 'app_apropos' )]
+    public function voirAPropos(): Response{
 
-    public function coucou(): Response
-    {
+        return $this->render('hello/aPropos.html.twig', [
 
-        $coucou = "Coucou world";
-
-        return new Response(
-            '<html><h1>' . $coucou . '</h1></html>'
-        );
+        ]);
     }
+
 
 
 }
