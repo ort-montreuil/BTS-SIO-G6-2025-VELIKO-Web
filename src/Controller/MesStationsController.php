@@ -36,6 +36,7 @@ class MesStationsController extends AbstractController
         /** @var StationUserRepository $stationUserRepository */
         $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
 
+
         $stationNames = [];
         for ($i = 0; $i < count($stationUserRepository->findStationsByUserId($userId)); $i++) {
             $idStation = $stationUserRepository->findStationsByUserId($userId)[$i]["id_station"];

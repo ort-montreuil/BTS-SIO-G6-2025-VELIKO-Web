@@ -33,11 +33,8 @@ class RegistrationFormType extends AbstractType
             ->add('ville')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
+                'label_html' => true,  // Permet de traiter le label comme du HTML
+                'label' => 'J\'accepte les <a href="/conditions/utilisation" target="_blank">conditions générales d\'utilisation</a>.',
             ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
@@ -52,7 +49,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                     new PasswordStrength([
-                        'minScore' => PasswordStrength::STRENGTH_WEAK, // Niveau de sécurité  fort
+                        'minScore' => PasswordStrength::STRENGTH_WEAK,
                         'message' => 'Votre mot de passe doit être fort: veuillez inclure des majuscules, des minuscules, des chiffres et des caractères spéciaux .',
                     ]),
                 ],

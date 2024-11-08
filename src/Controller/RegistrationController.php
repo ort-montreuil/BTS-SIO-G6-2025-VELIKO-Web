@@ -83,4 +83,12 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_login');
     }
+    #[Route('/conditions/utilisation', name: 'app_conditions_utilisation')]
+    public function voirConditions(): Response
+    {
+
+        return $this->render('registration/conditionsGenerales.html.twig', [
+        ]);
+    }
+
 }

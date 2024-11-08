@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block styles %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 360px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        label {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #007bff;
+            background-color: #fff;
+        }
+
+        /* Flex layout for rows */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .form-row .field {
+            flex: 1;
+        }
+
+        .dob-row .field {
+            flex: 1;
+            width: 33%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-error {
+            color: #ff3860;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .dob-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        Conditions Générales d'Utilisation - Veliko
+
+        Protection des données personnelles
+        Vos données personnelles sont collectées uniquement dans le cadre de l'utilisation de l'application Veliko. Ces informations ne seront ni partagées, ni vendues, ni utilisées à des fins externes à l'application.
+
+        Finalité des données
+        Les informations collectées servent à améliorer votre expérience sur l'application, en assurant notamment une gestion efficace de votre compte, de vos trajets, et de vos préférences. Nous ne procéderons à aucun traitement de données non lié à ces finalités.
+
+        Confidentialité
+        Nous nous engageons à protéger vos informations contre tout accès non autorisé. Vos données sont stockées de manière sécurisée et ne seront accessibles qu'aux personnes autorisées, exclusivement pour des raisons de maintenance ou de support technique.
+
+        Suppression du compte et anonymisation
+        En cas de suppression de votre compte, toutes vos données personnelles seront anonymisées. Nous conserverons uniquement certaines informations générales telles que votre date de naissance, votre code postal, et votre ville, qui ne permettent plus de vous identifier individuellement. Ces données seront utilisées à des fins statistiques uniquement.
+
+        Droit à l'oubli
+        Conformément à la réglementation en vigueur, vous pouvez demander la suppression complète de vos données personnelles. Pour toute demande spécifique concernant vos données, n'hésitez pas à nous contacter.
+    </div>
+{% endblock %}
