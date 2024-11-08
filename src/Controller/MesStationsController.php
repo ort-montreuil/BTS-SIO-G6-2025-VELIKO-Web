@@ -19,16 +19,28 @@ class MesStationsController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
     private UserRepository $userRepository;
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
-    {
+    private StationRepository $stationRepository;
+    private StationUserRepository $stationUserRepository;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        StationRepository $stationRepository,
+        StationUserRepository $stationUserRepository
+    ) {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
+        $this->stationRepository = $stationRepository;
+        $this->stationUserRepository = $stationUserRepository;
     }
 
 
     #[Route('/mes/stations', name: 'app_mes_stations')]
     public function index(): Response
     {
+        //récupérer toutes les stations
+        $stations = $this->stationRepository->findAll();
+
         // Récupérer l'utilisateur connecté
         /** @var User $user */ //sans cela, $user n'est pas reconnu comme un objet de la classe "User"
         $user = $this->getUser();
@@ -49,7 +61,8 @@ class MesStationsController extends AbstractController
 
         return $this->render('mes_stations/index.html.twig', [
             'controller_name' => 'MesStationsController',
-            'station_names' => $stationNames
+            'station_names' => $stationNames,
+            'stations' => $stations
         ]);
     }
     #[Route('/station/delete/{id}', name: 'app_station_delete', methods: ['POST'])]
