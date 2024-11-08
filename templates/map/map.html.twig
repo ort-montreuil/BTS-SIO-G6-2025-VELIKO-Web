@@ -178,11 +178,17 @@
                 '</div>' +
                 '</div>' +
                 '<p>Vélos disponibles : {{ station.velodispo }}</p>' +
-                    {% if app.user %}
-                '<form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post" style="text-align: center;">' +
-                '<button type="submit" class="favorite-button">Mettre en favori</button>' +
+                '{% if app.user %}' +
+                '{% if station.id in favoriteStationIds %}' +
+                '<form action="{{ path('app_station_delete', {'id': station.id}) }}" method="post">' +
+                '<button type="submit">Retirer des favoris</button>' +
                 '</form>' +
-                    {% endif %}
+                '{% else %}' +
+                '<form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post">' +
+                '<button type="submit">Mettre en favoris</button>' +
+                '</form>' +
+                '{% endif %}' +
+                '{% endif %}'+
                 '</div>';
 
             marker.bindPopup(popupContent); // Simply bind the popup
