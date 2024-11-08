@@ -15,7 +15,16 @@
             height: 100vh;
         }
 
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+        }
+
         .form-container {
+            position: relative; /* Allows positioning within the container */
             background-color: #ffffff;
             padding: 50px;
             border-radius: 12px;
@@ -114,11 +123,29 @@
                 flex-direction: column;
             }
         }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+        }
+
+
     </style>
 {% endblock %}
 
 {% block body %}
+
     <div class="form-container">
+
+
+        <!-- Back button in top-left corner -->
+        <a href="{{ path('app_accueil') }}" class="back-button">
+            <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
+        </a>
+
         <h1>Inscription</h1>
 
         {{ form_errors(registrationForm) }}
