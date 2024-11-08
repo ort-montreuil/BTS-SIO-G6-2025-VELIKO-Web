@@ -2,17 +2,93 @@
 
 {% block title %}Réinitialiser votre mot de passe{% endblock %}
 
+{% block styles %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            position: relative;
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 360px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .alert {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+            transition: all 0.2s;
+        }
+
+        input[type="email"]:focus {
+            border-color: #007bff;
+            background-color: #fff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div class="form-container">
         <h2>Envoyer un email de réinitialisation</h2>
 
-{#        {% for message in app.flashes('success') %}#}
-{#            <div class="alert alert-success">{{ message }}</div>#}
-{#        {% endfor %}#}
+        {# {% for message in app.flashes('success') %} #}
+        {# <div class="alert alert-success">{{ message }}</div> #}
+        {# {% endfor %} #}
 
-{#        {% for message in app.flashes('error') %}#}
-{#            <div class="alert alert-danger">{{ message }}</div>#}
-{#        {% endfor %}#}
+        {# {% for message in app.flashes('error') %} #}
+        {# <div class="alert alert-danger">{{ message }}</div> #}
+        {# {% endfor %} #}
 
         <form action="{{ path('app_emailMdp') }}" method="post">
             <input type="email" name="email" placeholder="Veuillez entrer votre email" required>
