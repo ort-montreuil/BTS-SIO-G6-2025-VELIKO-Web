@@ -264,8 +264,19 @@
         }
     }
 
-    .page-exit {
-        animation: fadeOut 1s forwards; /* Play the fadeOut animation over 1 second */
+    @keyframes slideUp {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    }
+
+    .page-exit-slide-up {
+        animation: slideUp 0.7s forwards; /* Customize duration as desired */
     }
 
 </style>
@@ -312,20 +323,15 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Select the "Voir la carte" button
         const viewMapButton = document.querySelector(".home-content a");
 
-        // Add click event listener to the button
         viewMapButton.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent the immediate navigation
+            event.preventDefault();
+            document.body.classList.add("page-exit-slide-up");
 
-            // Add the fade-out animation class to the body
-            document.body.classList.add("page-exit");
-
-            // Wait for the animation to complete (1 second) then navigate
             setTimeout(function() {
                 window.location.href = viewMapButton.getAttribute("href");
-            }, 1000); // Match the duration of the fadeOut animation
+            }, 700); // Match animation duration
         });
     });
 </script>
