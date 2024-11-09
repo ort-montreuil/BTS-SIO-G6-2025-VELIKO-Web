@@ -30,13 +30,15 @@ class StationUserRepository extends ServiceEntityRepository
     public function findStationNameById(int $stationId)
     {
         return $this->createQueryBuilder('su')
-            ->select("s.name")
-            ->innerJoin(Station::class, "s", 'WITH', "s.id = su.id_station") // Corrigé en s.id
-            ->andWhere("su.id_station = :stationId")
-            ->setParameter("stationId", $stationId)
+            ->select('s.name')
+            ->innerJoin(Station::class, 's', 'WITH', 's.station_id = su.id_station') // Assurez-vous que la condition est correcte
+            ->where('su.id_station = :stationId') // Utilisez where pour limiter les résultats à la station spécifiée
+            ->setParameter('stationId', $stationId)
             ->getQuery()
             ->getResult();
     }
+
+
 
     public function deleteStationByStationId(int $stationId)
     {

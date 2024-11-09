@@ -57,7 +57,7 @@ class RegistrationController extends AbstractController
                 compact('user', 'verificationToken')
             );
 
-            $this->addFlash('success', 'Votre compte a été vérifié avec succès. Vous pouvez maintenant vous connecter.');
+            $this->addFlash('success', 'Un email de vérification vous a été envoyé. Veuillez vérifier votre boîte de réception.');
 
         }
 
