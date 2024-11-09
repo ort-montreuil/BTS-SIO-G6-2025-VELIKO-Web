@@ -50,13 +50,21 @@ class MesStationsController extends AbstractController
 
 
         $stationNames = [];
-        for ($i = 0; $i < count($stationUserRepository->findStationsByUserId($userId)); $i++) {
-            $idStation = $stationUserRepository->findStationsByUserId($userId)[$i]["id_station"];
-            $stationName = $stationUserRepository->findStationNameById($idStation)[0]["name"];
-            $stationNames[] = [
-                'name' => $stationName,
-                'id' => $idStation
-            ];
+        $stationUserRecords = $stationUserRepository->findStationsByUserId($userId);
+
+        foreach ($stationUserRecords as $record) {
+            $idStation = $record["id_station"];
+            $stationData = $stationUserRepository->findStationNameById($idStation);
+
+            if (!empty($stationData)) {
+                $stationName = $stationData[0]["name"];
+                $stationNames[] = [
+                    'name' => $stationName,
+                    'id' => $idStation
+                ];
+            } else {
+                // Optionally, log or handle stations without names here if needed
+            }
         }
 
         return $this->render('mes_stations/index.html.twig', [
