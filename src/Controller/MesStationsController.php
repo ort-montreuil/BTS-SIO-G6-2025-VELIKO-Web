@@ -52,10 +52,13 @@ class MesStationsController extends AbstractController
         $stationNames = [];
         $stationUserRecords = $stationUserRepository->findStationsByUserId($userId);
 
+
         //Ici on récupère les noms des stations favorites de l'utilisateur
         foreach ($stationUserRecords as $record) {
             $idStation = $record["id_station"];
             $stationData = $stationUserRepository->findStationNameById($idStation);
+
+           // dump($stationData);
 
             //On vérifie si la station existe
             if (!empty($stationData)) {
@@ -66,6 +69,7 @@ class MesStationsController extends AbstractController
                 ];
             }
         }
+
 
         return $this->render('mes_stations/index.html.twig', [
             'controller_name' => 'MesStationsController',
@@ -126,7 +130,9 @@ class MesStationsController extends AbstractController
             $this->addFlash('success', 'Station ajoutée aux favoris.');
         }
 
+
         return $this->redirectToRoute('app_mes_stations');
+
     }
 
 }

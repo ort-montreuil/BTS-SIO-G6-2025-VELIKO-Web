@@ -57,7 +57,8 @@ class RegistrationController extends AbstractController
                 compact('user', 'verificationToken')
             );
 
-            return $security->login($user, 'form_login', 'main');
+            $this->addFlash('success', 'Votre compte a été vérifié avec succès. Vous pouvez maintenant vous connecter.');
+
         }
 
         return $this->render('registration/register.html.twig', [

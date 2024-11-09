@@ -146,6 +146,11 @@
             <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
         </a>
 
+        {% for message in app.flashes('success') %}
+            {{ message }}
+        {% endfor %}
+
+
         <h1>Inscription</h1>
 
         {{ form_errors(registrationForm) }}
