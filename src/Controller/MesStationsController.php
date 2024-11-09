@@ -48,17 +48,13 @@ class MesStationsController extends AbstractController
         /** @var StationUserRepository $stationUserRepository */
         $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
 
-
         $stationNames = [];
         $stationUserRecords = $stationUserRepository->findStationsByUserId($userId);
-
 
         //Ici on récupère les noms des stations favorites de l'utilisateur
         foreach ($stationUserRecords as $record) {
             $idStation = $record["id_station"];
             $stationData = $stationUserRepository->findStationNameById($idStation);
-
-
 
             //On vérifie si la station existe
             if (!empty($stationData)) {

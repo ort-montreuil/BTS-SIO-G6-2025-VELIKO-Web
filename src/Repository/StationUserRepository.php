@@ -18,7 +18,7 @@ class StationUserRepository extends ServiceEntityRepository
     }
 
 
-    public function findStationsByUserId(int $userId): array
+    public function findStationsByUserId(int $userId)
     {
         return $this->createQueryBuilder('su')
             ->select("su.id_station")
@@ -31,14 +31,12 @@ class StationUserRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('su')
             ->select('s.name')
-            ->innerJoin(Station::class, 's', 'WITH', 's.station_id = su.id_station') // Assurez-vous que la condition est correcte
-            ->where('su.id_station = :stationId') // Utilisez where pour limiter les résultats à la station spécifiée
+            ->innerJoin(Station::class, 's', 'WITH', 's.id = su.id_station OR s.station_id = su.id_station')
+            ->where('su.id_station = :stationId')
             ->setParameter('stationId', $stationId)
             ->getQuery()
             ->getResult();
     }
-
-
 
     public function deleteStationByStationId(int $stationId)
     {
