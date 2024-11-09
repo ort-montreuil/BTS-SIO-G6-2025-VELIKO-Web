@@ -66,7 +66,7 @@
                         margin-top: 5px;
                 }
 
-                .favorite-btn {
+                .retirerFavorite-btn {
                         background-color: #dc3545;
                         color: white;
                         border: none;
@@ -77,9 +77,25 @@
                         transition: background-color 0.3s ease;
                 }
 
-                .favorite-btn:hover {
+                .retirerFavorite-btn {
                         background-color: #c82333;
                 }
+
+                .favorite-btn {
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 8px 12px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    transition: background-color 0.3s ease;
+                }
+
+                .favorite-btn:hover {
+                    background-color: #0056b3;
+                }
+
         </style>
 {% endblock %}
 
@@ -100,7 +116,7 @@
                                                 <h3>{{ station.name }}</h3>
                                         </div>
                                         <form action="{{ path('app_station_delete', {'id': station.id}) }}" method="post">
-                                                <button type="submit" class="favorite-btn">Retirer des favoris</button>
+                                                <button type="submit" class="retirerFavorite-btn">Retirer des favoris</button>
                                         </form>
                                 </div>
                         {% endfor %}

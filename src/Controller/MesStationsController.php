@@ -52,18 +52,18 @@ class MesStationsController extends AbstractController
         $stationNames = [];
         $stationUserRecords = $stationUserRepository->findStationsByUserId($userId);
 
+        //Ici on récupère les noms des stations favorites de l'utilisateur
         foreach ($stationUserRecords as $record) {
             $idStation = $record["id_station"];
             $stationData = $stationUserRepository->findStationNameById($idStation);
 
+            //On vérifie si la station existe
             if (!empty($stationData)) {
                 $stationName = $stationData[0]["name"];
                 $stationNames[] = [
                     'name' => $stationName,
                     'id' => $idStation
                 ];
-            } else {
-                // Optionally, log or handle stations without names here if needed
             }
         }
 
