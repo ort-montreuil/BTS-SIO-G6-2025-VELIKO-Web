@@ -123,7 +123,6 @@ class MesStationsController extends AbstractController
             $this->entityManager->persist($stationUser);
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'Station ajoutée aux favoris.');
         }
 
 

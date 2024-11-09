@@ -30,7 +30,7 @@ class MdpOublieFormType extends AbstractType
                         'max' => 4096,
                     ]),
                     new PasswordStrength([
-                        'minScore' => PasswordStrength::STRENGTH_WEAK, // Niveau de sécurité fort
+                        'minScore' => PasswordStrength::STRENGTH_WEAK,
                         'message' => 'Votre mot de passe doit être forts: veuillez inclure des majuscules, des minuscules, des chiffres et des caractères spéciaux',
                     ]),
                 ],
@@ -47,7 +47,7 @@ class MdpOublieFormType extends AbstractType
             'invalid_message' => 'Les mots de passe ne correspondent pas.',
         ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Modifier le mdp'
+                'label' => 'Modifier le mot de passe'
             ]);
     }
 

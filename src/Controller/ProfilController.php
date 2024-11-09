@@ -52,10 +52,7 @@ class ProfilController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash(
-                'success',
-                'Les informations de votre compte ont bien été modifiées'
-            );
+
             return $this->redirectToRoute('app_profil');
         }
 
