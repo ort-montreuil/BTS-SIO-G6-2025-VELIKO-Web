@@ -74,22 +74,45 @@
 
         .checkbox {
             display: flex;
-            align-items: center; /* Aligne verticalement le texte avec la case à cocher */
+            align-items: center;
             margin-bottom: 10px;
         }
 
         .checkbox input[type="checkbox"] {
-            width: 15px; /* Taille de la case à cocher */
-            height: 18px; /* Taille de la case à cocher */
-            margin-right: 10px; /* Espace entre la case à cocher et le texte */
-            cursor: pointer; /* Curseur de la souris pointer sur la case */
-            accent-color: #007bff; /* Couleur de la case à cocher */
+            width: 15px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: #007bff;
         }
 
         .checkbox label {
-            font-size: 0.9rem; /* Taille de la police */
-            color: #555; /* Couleur du texte */
-            cursor: pointer; /* Curseur de la souris pointer sur le texte */
+            font-size: 0.9rem;
+            color: #555;
+            cursor: pointer;
+        }
+
+        /* Style for the links */
+        a {
+            color: #007bff;
+            font-size: 0.9rem;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        a:focus {
+            outline: none;
+        }
+
+        a:not(:last-child) {
+            margin-right: 20px;
         }
     </style>
 {% endblock %}
@@ -128,8 +151,8 @@
 
             <button class="btn btn-lg btn-primary" type="submit">Se connecter</button>
 
-            <a href="{{ path('app_renseignerEmail') }}" > Mot de passe oublié?</a>
-            <a href="{{ path('app_register') }}" > Pas de compte?</a>
+            <a href="{{ path('app_renseignerEmail') }}" class="forgot-password-link">Mot de passe oublié?</a>
+            <a href="{{ path('app_register') }}" class="register-link">Pas de compte?</a>
         </form>
     </div>
 {% endblock %}
