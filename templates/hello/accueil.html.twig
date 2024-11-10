@@ -232,35 +232,33 @@
     }
 
 
+    /* Animation for the bike */
     .bike-animation {
         position: absolute;
-        top: -2px; /* Ajuste pour centrer le vélo dans la nav */
-        left: -50px; /* Débute légèrement à gauche */
-        font-size: 24px; /* Taille du vélo */
-        animation: bikeMove 10s linear infinite;
+        top: -2px; /* Adjust to center the bike in the nav */
+        left: -50px; /* Start slightly to the left */
+        font-size: 24px; /* Size of the bike */
+        animation: bikeMove 10s linear forwards; /* Forward direction only */
         z-index: 1;
     }
 
     .bike-icon {
-        transform: scaleX(1); /* Start with the original direction */
-        transition: transform 1s ease-in-out; /* Smooth transition for flip */
+        transition: transform 1s ease-in-out; /* Smooth transition for any potential future flip */
     }
 
-    /* Animation de déplacement de droite à gauche */
+    /* Animation for the bike movement */
     @keyframes bikeMove {
         0% {
-            left: 65px; /* Commence en dehors de la nav */
-            transform: scaleX(1); /* Vélo pointe à droite */
+            left: 5%; /* Starts from the left */
+            opacity: 1; /* Fully visible */
         }
-        50% {
-            left: calc(60% - 50px); /* Traverse toute la nav */
-            transform: scaleX(1); /* Vélo toujours à droite */
+        90% {
+            left: calc(65% - 50px); /* Move towards the right side (adjusted to fit the bike width) */
+            opacity: 1; /* Still visible as it's moving */
         }
         100% {
-            left: 65px; /* Revient au point de départ */
-            transform: scaleX(-1); /* Vélo pointe maintenant à gauche */
-            transition: transform 0.1ms ease-in-out; /* Smooth transition for flip */
-
+            left: 100%; /* Completely off-screen to the right */
+            opacity: 0; /* Disappears when it reaches the right */
         }
     }
 
