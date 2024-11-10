@@ -35,47 +35,53 @@ class MesStationsController extends AbstractController
     }
 
 
-    #[Route('/mes/stations', name: 'app_mes_stations')]
-    public function index(): Response
+    #[Route('/mes/stations', name: 'app_mes_stations')] // Définition de la route '/mes/stations' avec le nom 'app_mes_stations'
+    public function index(): Response // La méthode index retourne une réponse HTTP
     {
-        // Retrieve all stations
+        // Récupère toutes les stations disponibles depuis le repository
         $stations = $this->stationRepository->findAll();
 
-        // Get the logged-in user
+        // Récupère l'utilisateur actuellement connecté
         /** @var User $user */
         $user = $this->getUser();
-        $userId = $user->getId();
+        $userId = $user->getId(); // Extrait l'ID de l'utilisateur connecté
 
+        // Obtient le repository de StationUser pour gérer les stations favorites de l'utilisateur
         /** @var StationUserRepository $stationUserRepository */
         $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
 
-        // Retrieve the user's favorite stations
+        // Récupère les enregistrements des stations favorites de l'utilisateur
         $stationUserRecords = $stationUserRepository->findStationsByUserId($userId);
 
-        // Prepare favorite station IDs and names
+        // Prépare les tableaux pour stocker les ID et les noms des stations favorites
         $favoriteStationIds = [];
         $stationNames = [];
-        foreach ($stationUserRecords as $record) {
-            $idStation = $record["id_station"];
-            $stationData = $stationUserRepository->findStationNameById($idStation);
 
+        // Parcourt chaque enregistrement des stations favorites
+        foreach ($stationUserRecords as $record) {
+            $idStation = $record["id_station"]; // Extrait l'ID de la station favorite
+            $stationData = $stationUserRepository->findStationNameById($idStation); // Récupère les données de la station
+
+            // Si la station existe, extrait son nom et l'ajoute aux tableaux
             if (!empty($stationData)) {
-                $stationName = $stationData[0]["name"];
+                $stationName = $stationData[0]["name"]; // Extrait le nom de la station
                 $stationNames[] = [
                     'name' => $stationName,
                     'id' => $idStation
-                ];
-                $favoriteStationIds[] = $idStation;
+                ]; // Ajoute un tableau associatif avec le nom et l'ID de la station
+                $favoriteStationIds[] = $idStation; // Ajoute l'ID de la station aux favoris
             }
         }
 
+        // Rend la vue avec les données des stations et des stations favorites
         return $this->render('mes_stations/index.html.twig', [
             'controller_name' => 'MesStationsController',
-            'station_names' => $stationNames,
-            'stations' => $stations,
-            'favoriteStationIds' => $favoriteStationIds
+            'station_names' => $stationNames, // Noms et ID des stations favorites
+            'stations' => $stations, // Toutes les stations
+            'favoriteStationIds' => $favoriteStationIds // IDs des stations favorites
         ]);
     }
+
     #[Route('/station/delete/{id}', name: 'app_station_delete', methods: ['POST'])]
     public function delete(int $id, Request $request): Response
     {
