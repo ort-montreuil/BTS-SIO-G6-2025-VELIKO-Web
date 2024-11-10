@@ -133,6 +133,41 @@
             background-color: #c82333;
         }
 
+        /* Section de statistiques */
+        .stats-section {
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 20px;
+            background-color: #113f67;
+            margin: 15px auto 0 auto; /* Center the section on the page */
+            font-size: 16px;
+            color: #fff; /* Make text color white for better contrast */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-section p {
+            margin: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: #e0e0e0; /* Slightly lighter color for text */
+        }
+
+        .stats-section p span {
+            display: block;
+            font-size: 14px;
+            font-weight: normal;
+            color: #b0b0b0; /* Lighter color for subtext */
+        }
+
+        /* Animation au survol */
+        .stats-section p:hover {
+            color: #007bff;
+            transform: scale(1.05);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
@@ -146,6 +181,13 @@
             <!-- Ici s'affichera la carte -->
         </div>
     </div>
+
+    <!-- Section de mini-statistiques en bas de la page -->
+    <div class="stats-section">
+    <p style="color: white;">Nombre total de stations : {{ totalStations }}</p>
+    <p style="color: white;">Vélos électriques disponibles : {{ totalElectricBikes }}</p>
+    <p style="color: white;">Vélos mécaniques disponibles : {{ totalMechanicalBikes }}</p>
+</div>
 
     <div class="info-section">
         <p>Favorisez la mobilité écologique en utilisant notre système de vélos en libre-service. Nos stations réparties dans la ville vous permettent de trouver rapidement un vélo près de chez vous.</p>

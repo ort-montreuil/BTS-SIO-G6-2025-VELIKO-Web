@@ -4,14 +4,12 @@ namespace App\Controller;
 
 use App\Entity\StationUser;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class MapController extends AbstractController
 {
-
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -19,14 +17,10 @@ class MapController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-
     #[Route('/map', name: 'app_map')]
-
     public function execute(): Response
     {
-
         $curl = curl_init();
-
 
         curl_setopt_array($curl, [
             CURLOPT_PORT => $_ENV["API_VELIKO_PORT"],
@@ -41,19 +35,14 @@ class MapController extends AbstractController
         ]);
 
         $response = curl_exec($curl);
-
         $err = curl_error($curl);
-
         curl_close($curl);
-
 
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
             $response = json_decode($response, true);
         }
-
-        //dump($response);
 
         $curl2 = curl_init();
         curl_setopt_array($curl2, [
@@ -69,17 +58,14 @@ class MapController extends AbstractController
         ]);
 
         $response2 = curl_exec($curl2);
-
         $err2 = curl_error($curl2);
-
         curl_close($curl2);
 
         if ($err2) {
             echo "cURL Error #:" . $err2;
-        }else{
+        } else {
             $response2 = json_decode($response2, true);
         }
-        //dump($response2);
 
         $stations = [];
 
@@ -93,17 +79,17 @@ class MapController extends AbstractController
                         'velodispo' => $infovelo['num_bikes_available'],
                         'velomecha' => $infovelo['num_bikes_available_types'][0]['mechanical'],
                         'veloelec' => $infovelo['num_bikes_available_types'][1]['ebike'],
-                        'id' => $infovelo ['station_id']
+                        'id' => $infovelo['station_id']
                     ];
-                    $stations[] = $stations_data; // opérateur d'assignation corrigé pour ajouter au tableau
-                    // var_dump($stations);
+                    $stations[] = $stations_data;
                     break;
-
                 }
             }
         }
 
-
+        $totalStations = count($stations);
+        $totalElectricBikes = array_sum(array_map(fn($station) => $station['veloelec'], $stations));
+        $totalMechanicalBikes = array_sum(array_map(fn($station) => $station['velomecha'], $stations));
 
         $user = $this->getUser();
         $favoriteStationIds = [];
@@ -111,19 +97,19 @@ class MapController extends AbstractController
         if ($user) {
             $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
 
-            // Obtenir les stations favorites de l'utilisateur
             $favorites = $stationUserRepository->findBy(['id_user' => $user->getId()]);
             $favoriteStationIds = array_map(function ($favorite) {
                 return $favorite->getIdStation();
             }, $favorites);
         }
 
-
         return $this->render('map/map.html.twig', [
-            "titre"   => 'MapController',
+            "titre" => 'MapController',
             "stations" => $stations,
-            "favoriteStationIds" => $favoriteStationIds
-
+            "favoriteStationIds" => $favoriteStationIds,
+            "totalStations" => $totalStations,
+            "totalElectricBikes" => $totalElectricBikes,
+            "totalMechanicalBikes" => $totalMechanicalBikes
         ]);
     }
 }
