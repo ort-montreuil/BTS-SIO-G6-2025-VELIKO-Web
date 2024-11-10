@@ -232,11 +232,53 @@
     }
 
 
+    .bike-animation {
+        position: absolute;
+        top: -2px; /* Ajuste pour centrer le vélo dans la nav */
+        left: -50px; /* Débute légèrement à gauche */
+        font-size: 24px; /* Taille du vélo */
+        animation: bikeMove 10s linear infinite;
+        z-index: 1;
+    }
+
+    .bike-icon {
+        transform: scaleX(1); /* Start with the original direction */
+        transition: transform 1s ease-in-out; /* Smooth transition for flip */
+    }
+
+    /* Animation de déplacement de droite à gauche */
+    @keyframes bikeMove {
+        0% {
+            left: 65px; /* Commence en dehors de la nav */
+            transform: scaleX(1); /* Vélo pointe à droite */
+        }
+        50% {
+            left: calc(60% - 50px); /* Traverse toute la nav */
+            transform: scaleX(1); /* Vélo toujours à droite */
+        }
+        100% {
+            left: 65px; /* Revient au point de départ */
+            transform: scaleX(-1); /* Vélo pointe maintenant à gauche */
+            transition: transform 0.1ms ease-in-out; /* Smooth transition for flip */
+
+        }
+    }
+
+    .page-exit-slide-up {
+        animation: slideUp 0.7s forwards; /* Customize duration as desired */
+    }
 
 </style>
 <header>
     <div class="logo">
         <a href="{{ path('app_accueil') }}"><img src="images/logo1.png" alt="Logo"></a>
+
+
+        <!-- Vélo animé -->
+        <div class="bike-animation">
+            <img src="AnimatedIcons/bike-icon-right.gif" alt="Bike Icon" class="bike-icon">
+        </div>
+    </div>
 
     <nav>
 
