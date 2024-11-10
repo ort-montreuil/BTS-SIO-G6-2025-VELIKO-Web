@@ -38,7 +38,7 @@ docker compose up -d
 
 Appliquez les migrations pour mettre à jour la structure de la base de données :
 ```bash
-php bin/console doctrine:migrations:migrate
+symfony console doctrine:migrations:migrate
 ````
 
 ### Étape 6 : Importation des stations dans la base de données
