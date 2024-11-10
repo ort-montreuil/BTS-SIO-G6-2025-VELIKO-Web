@@ -4,6 +4,14 @@
 
 {% block styles %}
     <style>
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+        }
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f2f5;
@@ -23,6 +31,19 @@
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
+        }
+
+        .about-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
         }
 
         h1, h2 {
@@ -92,6 +113,12 @@
 
 {% block body %}
     <div class="about-container">
+
+        <!-- Back button in top-left corner -->
+        <a href="{{ path('app_map') }}" class="back-button">
+            <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
+        </a>
+
         <h1>À propos de Veliko</h1>
 
         <div class="about-content">
@@ -107,11 +134,7 @@
                 <span class="about-highlight">Notre mission</span> : offrir une expérience de transport fluide et agréable, pour une ville plus propre et des trajets plus plaisants.
                 Rejoignez notre communauté de cyclistes urbains et découvrez une nouvelle façon de vous déplacer !
                 <br>
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a href="{{ path('app_map') }}" class="cta-button">Voir la carte</a>
-                {% else %}
-                    <a href="{{ path('app_register') }}" class="cta-button">Inscription</a>
-                {% endif %}
+                <a href="{{ path('app_register') }}" class="cta-button">Inscription</a>
             </p>
         </div>
 
