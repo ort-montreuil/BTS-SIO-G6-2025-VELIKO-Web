@@ -38,39 +38,42 @@ class MesStationsController extends AbstractController
     #[Route('/mes/stations', name: 'app_mes_stations')]
     public function index(): Response
     {
-        //récupérer toutes les stations
+        // Retrieve all stations
         $stations = $this->stationRepository->findAll();
 
-        // Récupérer l'utilisateur connecté
-        /** @var User $user */ //sans cela, $user n'est pas reconnu comme un objet de la classe "User"
+        // Get the logged-in user
+        /** @var User $user */
         $user = $this->getUser();
         $userId = $user->getId();
+
         /** @var StationUserRepository $stationUserRepository */
         $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
 
-        $stationNames = [];
+        // Retrieve the user's favorite stations
         $stationUserRecords = $stationUserRepository->findStationsByUserId($userId);
 
-        //Ici on récupère les noms des stations favorites de l'utilisateur
+        // Prepare favorite station IDs and names
+        $favoriteStationIds = [];
+        $stationNames = [];
         foreach ($stationUserRecords as $record) {
             $idStation = $record["id_station"];
             $stationData = $stationUserRepository->findStationNameById($idStation);
 
-            //On vérifie si la station existe
             if (!empty($stationData)) {
                 $stationName = $stationData[0]["name"];
                 $stationNames[] = [
                     'name' => $stationName,
                     'id' => $idStation
                 ];
+                $favoriteStationIds[] = $idStation;
             }
         }
-
 
         return $this->render('mes_stations/index.html.twig', [
             'controller_name' => 'MesStationsController',
             'station_names' => $stationNames,
-            'stations' => $stations
+            'stations' => $stations,
+            'favoriteStationIds' => $favoriteStationIds
         ]);
     }
     #[Route('/station/delete/{id}', name: 'app_station_delete', methods: ['POST'])]

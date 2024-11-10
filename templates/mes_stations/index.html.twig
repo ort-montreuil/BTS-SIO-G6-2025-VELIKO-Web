@@ -132,9 +132,15 @@
                     <div class="station-info">
                         <h3>{{ station.name }}</h3>
                     </div>
-                    <form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post">
-                        <button type="submit" class="favorite-btn">Mettre en favoris</button>
-                    </form>
+                    {% if station.id in favoriteStationIds %}
+                        <form action="{{ path('app_station_delete', {'id': station.id}) }}" method="post">
+                            <button type="submit" class="retirerFavorite-btn">Retirer des favoris</button>
+                        </form>
+                    {% else %}
+                        <form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post">
+                            <button type="submit" class="favorite-btn">Mettre en favoris</button>
+                        </form>
+                    {% endif %}
                 </div>
             {% endfor %}
 
