@@ -262,8 +262,20 @@
         }
     }
 
+    /* Ensure the page exit animation is defined properly */
+    @keyframes slideUp {
+        0% {
+            transform: translateY(0);  /* Starting position */
+            opacity: 1; /* Fully visible */
+        }
+        100% {
+            transform: translateY(-100%); /* Move the page up */
+            opacity: 0; /* Fade out */
+        }
+    }
+
     .page-exit-slide-up {
-        animation: slideUp 0.7s forwards; /* Customize duration as desired */
+        animation: slideUp 0.5s ease-out forwards; /* Smooth and quick transition */
     }
 
 </style>
@@ -313,12 +325,16 @@
         const viewMapButton = document.querySelector(".home-content a");
 
         viewMapButton.addEventListener("click", function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Add the animation class to the body
             document.body.classList.add("page-exit-slide-up");
 
+            // Wait for the animation to finish before navigating
             setTimeout(function() {
+                // Now redirect to the new page
                 window.location.href = viewMapButton.getAttribute("href");
-            }, 700); // Match animation duration
+            }, 500); // Match animation duration (500ms)
         });
     });
 </script>
