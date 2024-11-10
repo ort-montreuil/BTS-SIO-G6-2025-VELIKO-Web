@@ -134,7 +134,8 @@
                 <span class="about-highlight">Notre mission</span> : offrir une expérience de transport fluide et agréable, pour une ville plus propre et des trajets plus plaisants.
                 Rejoignez notre communauté de cyclistes urbains et découvrez une nouvelle façon de vous déplacer !
                 <br>
-                <a href="{{ path('app_register') }}" class="cta-button">Inscription</a>
+                <a href="{{ path('app_map') }}" class="cta-button" {% if not app.user %}style="display:none;"{% endif %}>Voir la carte</a>
+                <a href="{{ path('app_register') }}" class="cta-button" {% if app.user %}style="display:none;"{% endif %}>Inscription</a>
             </p>
         </div>
 
