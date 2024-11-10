@@ -78,7 +78,7 @@
             max-height: 300px;  /* Optional: set a maximum height */
             overflow-y: auto;  /* Enable scrolling if content exceeds max height */
         }
-        .favorite-button {
+        .favBtn {
             background-color: #007bff; /* Couleur de fond */
             color: white; /* Couleur du texte */
             border: none; /* Suppression de la bordure */
@@ -89,13 +89,49 @@
             transition: background-color 0.3s; /* Effet de transition */
         }
 
-        .favorite-button:hover {
+        .favBtn:hover {
             background-color: #0056b3; /* Couleur de fond au survol */
+        }
+
+        /* Section d'informations */
+        .info-section {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+            margin-top: 20px;
         }
 
 
 
+        .favBtn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
+        .favBtn:hover {
+            background-color: #0056b3;
+        }
+
+        .deFavBtn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .deFavBtn:hover {
+            background-color: #c82333;
+        }
 
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
@@ -109,6 +145,10 @@
         <div id="map">
             <!-- Ici s'affichera la carte -->
         </div>
+    </div>
+
+    <div class="info-section">
+        <p>Favorisez la mobilité écologique en utilisant notre système de vélos en libre-service. Nos stations réparties dans la ville vous permettent de trouver rapidement un vélo près de chez vous.</p>
     </div>
 
 {% endblock %}
@@ -181,11 +221,11 @@
                 '{% if app.user %}' +
                 '{% if station.id in favoriteStationIds %}' +
                 '<form action="{{ path('app_station_delete', {'id': station.id}) }}" method="post">' +
-                '<button type="submit">Retirer des favoris</button>' +
+                '<button type="submit" class="deFavBtn">Retirer des favoris</button>' +
                 '</form>' +
                 '{% else %}' +
                 '<form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post">' +
-                '<button type="submit">Mettre en favoris</button>' +
+                '<button type="submit" class="favBtn">Mettre en favoris</button>' +
                 '</form>' +
                 '{% endif %}' +
                 '{% endif %}'+
