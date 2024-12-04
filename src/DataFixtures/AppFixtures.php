@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail("user-$i@gmail.dev");
             $user->setPassword($this->passwordHasher->hashPassword($user, "Bonjour12345!"));
-            $user->setRoles(["ROLE_USER"]);
+            $user->setRoles([]);
             $user->setNom("nom-$i");
             $user->setPrenom("prenom-$i");
             $user->setDateNaissance(new \DateTime());
