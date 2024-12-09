@@ -20,6 +20,11 @@ class UserChecker implements UserCheckerInterface
                 'Votre compte est inactif ! Impossible de se connecter'
             );
         }
+        if ($user->isBlocked()) {
+            throw new CustomUserMessageAuthenticationException(
+                'Votre compte est bloqué ! Impossible de se connecter'
+            );
+        }
     }
     public function checkPostAuth(UserInterface $user): void
     {

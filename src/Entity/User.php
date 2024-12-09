@@ -63,6 +63,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $verificationToken = null;
 
+    #[ORM\Column]
+    private ?bool $is_blocked = null;
+
+    #[ORM\Column]
+    private ?bool $nouveau_mdp = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -230,6 +236,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerificationToken(?string $verificationToken): static
     {
         $this->verificationToken = $verificationToken;
+
+        return $this;
+    }
+
+    public function isBlocked(): ?bool
+    {
+        return $this->is_blocked;
+    }
+
+    public function setBlocked(bool $is_blocked): static
+    {
+        $this->is_blocked = $is_blocked;
+
+        return $this;
+    }
+
+    public function isNouveauMdp(): ?bool
+    {
+        return $this->nouveau_mdp;
+    }
+
+    public function setNouveauMdp(bool $nouveau_mdp): static
+    {
+        $this->nouveau_mdp = $nouveau_mdp;
 
         return $this;
     }

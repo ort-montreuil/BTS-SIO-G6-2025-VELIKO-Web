@@ -54,3 +54,19 @@ Enfin, lancez le serveur Symfony pour démarrer l’application :
 ```bash
 symfony serve:start
 ````
+
+### Mode production ###
+
+Dans le .env 
+
+````
+APP_ENV=prod
+APP_DEBUG=0
+````
+
+```` bash
+Composer install
+````
+```` bash
+php bin/console d:m:m
+````
