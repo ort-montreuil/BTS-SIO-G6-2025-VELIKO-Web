@@ -2,7 +2,6 @@
 
 namespace App\Security;
 
-
 use App\Entity\User;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -23,6 +22,12 @@ class UserChecker implements UserCheckerInterface
         if ($user->isBlocked()) {
             throw new CustomUserMessageAuthenticationException(
                 'Votre compte est bloqué ! Impossible de se connecter'
+            );
+        }
+
+        if ($user->isNouveauMdp()) {
+            throw new CustomUserMessageAuthenticationException(
+                'Vous devez renouveller votre mot de passe pour vous connecter !'
             );
         }
     }

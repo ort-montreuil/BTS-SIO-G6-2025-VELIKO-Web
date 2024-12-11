@@ -74,8 +74,6 @@ class EditMdpController extends AbstractController
         ]);
     }
 
-
-
     /**
      * @throws TransportExceptionInterface
      */
@@ -110,17 +108,36 @@ class EditMdpController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // Envoyer l'email avec le lien de réinitialisation
-        $mail->send(
-            'no-reply@veliko.local',
-            $email,
-            'Réinitialisation : Mot de passe oublié',
-            'mdpOublie', // Nom du template Twig pour l'email
-            ['verificationToken' => $verificationToken] // Passer le token au template
-        );
+        if ($user->isNouveauMdp()){
+            $mail->send(
+                'no-reply@veliko.local',
+                $email,
+                'Renouveller votre mot de passe',
+                'mdpRenouveller', // Nom du template Twig pour l'email
+                ['verificationToken' => $verificationToken] // Passer le token au template
+            );
 
-        // Ajouter un message de succès et rediriger l'utilisateur
-        $this->addFlash('success', 'Un email de réinitialisation a été envoyé.');
+            $user->setNouveauMdp(false);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // Ajouter un message de succès et rediriger l'utilisateur
+            $this->addFlash('success', 'Un email de renouvellement a été envoyé.');
+
+        }else {
+
+            // Envoyer l'email avec le lien de réinitialisation
+            $mail->send(
+                'no-reply@veliko.local',
+                $email,
+                'Réinitialisation : Mot de passe oublié',
+                'mdpOublie', // Nom du template Twig pour l'email
+                ['verificationToken' => $verificationToken] // Passer le token au template
+            );
+
+            // Ajouter un message de succès et rediriger l'utilisateur
+            $this->addFlash('success', 'Un email de réinitialisation a été envoyé.');
+        }
         return $this->redirectToRoute('app_login');
     }
 
@@ -172,7 +189,6 @@ class EditMdpController extends AbstractController
                     $user,
                     $form->get('newPassword')->getData()
                 )
-
             );
 
             // Optionnel : Réinitialisez le token après l'utilisation
@@ -192,6 +208,5 @@ class EditMdpController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
 
 }

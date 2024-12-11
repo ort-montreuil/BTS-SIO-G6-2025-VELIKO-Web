@@ -62,7 +62,7 @@ class EditMdpFormType extends AbstractType
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
             ])
             ->add('submit', SubmitType::class,[
-                'label' => 'Modifier le mdp'
+                'label' => 'Modifier le mot de passe'
             ]);
         ;
     }
