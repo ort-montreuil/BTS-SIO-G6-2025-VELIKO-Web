@@ -117,10 +117,6 @@ class EditMdpController extends AbstractController
                 ['verificationToken' => $verificationToken] // Passer le token au template
             );
 
-            $user->setNouveauMdp(false);
-            $entityManager->persist($user);
-            $entityManager->flush();
-
             // Ajouter un message de succès et rediriger l'utilisateur
             $this->addFlash('success', 'Un email de renouvellement a été envoyé.');
 
@@ -190,6 +186,11 @@ class EditMdpController extends AbstractController
                     $form->get('newPassword')->getData()
                 )
             );
+            if($user->isNouveauMdp()){
+                $user->setNouveauMdp(false);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
 
             // Optionnel : Réinitialisez le token après l'utilisation
             // $user->setVerificationToken(null); // Réinitialisez ou supprimez le token si nécessaire
