@@ -37,6 +37,8 @@ class AppFixtures extends Fixture
         $user->setAdresse("adresse-admin");
         $user->setCodePostale("92100");
         $user->setVille("ville-admin");
+        $user->setBlocked(false);
+        $user->setNouveauMdp(false);
         $user->setVerified(true);
 
         $manager->persist($user);
@@ -53,6 +55,8 @@ class AppFixtures extends Fixture
             $user->setCodePostale("92100");
             $user->setVille("ville-$i");
             $user->setVerified(true);
+            $user->setBlocked(false);
+            $user->setNouveauMdp(false);
             $manager->persist($user);
         }
         $manager->flush();
