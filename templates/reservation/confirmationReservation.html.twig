@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos de Veliko{% endblock %}
+
+{% block styles %}
+    <style>
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .about-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        h1, h2 {
+            color: #007bff;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .about-content p, .about-values p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .about-highlight {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        .about-values, .about-benefits, .about-team {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        .about-values ul, .about-benefits ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .about-values li, .about-benefits li {
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="about-container">
+
+        <!-- Back button in top-left corner -->
+        <a href="{{ path('app_map') }}" class="back-button">
+            <img src="/AnimatedIcons/back.gif" alt="Back" style="width: 30px; height: 30px;">
+        </a>
+
+        <h1>À propos de Veliko</h1>
+
+        <div class="about-content">
+            <p>
+                Bienvenue chez <span class="about-highlight">Veliko</span> ! Nous sommes une entreprise passionnée par la mobilité urbaine durable.
+                Inspiré du concept de <em>Vélib</em>, notre objectif est de rendre les déplacements à vélo accessibles, faciles et écologiques pour tous.
+            </p>
+            <p>
+                Avec nos vélos électriques et mécaniques, vous pouvez parcourir la ville sans effort, en contribuant à la réduction de l'empreinte carbone et au désengorgement du trafic.
+                Que vous soyez un habitant ou un visiteur, nous vous proposons une solution pratique, rapide et respectueuse de l'environnement.
+            </p>
+            <p>
+                <span class="about-highlight">Notre mission</span> : offrir une expérience de transport fluide et agréable, pour une ville plus propre et des trajets plus plaisants.
+                Rejoignez notre communauté de cyclistes urbains et découvrez une nouvelle façon de vous déplacer !
+                <br>
+                <a href="{{ path('app_map') }}" class="cta-button" {% if not app.user %}style="display:none;"{% endif %}>Voir la carte</a>
+                <a href="{{ path('app_register') }}" class="cta-button" {% if app.user %}style="display:none;"{% endif %}>Inscription</a>
+            </p>
+        </div>
+
+        <!-- Section sur les valeurs de l'entreprise -->
+        <div class="about-values">
+            <h2>Nos Valeurs</h2>
+            <ul>
+                <li><strong>Durabilité</strong> : Promouvoir un transport respectueux de l'environnement pour une ville plus verte.</li>
+                <li><strong>Accessibilité</strong> : Offrir un service à la portée de tous, sans compromis sur la qualité.</li>
+                <li><strong>Innovation</strong> : Utiliser la technologie pour améliorer l'expérience utilisateur et simplifier vos trajets.</li>
+                <li><strong>Communauté</strong> : Encourager le lien social et créer une communauté de cyclistes actifs et engagés.</li>
+            </ul>
+        </div>
+
+        <!-- Section sur les avantages pour les utilisateurs -->
+        <div class="about-benefits">
+            <h2>Pourquoi choisir Veliko ?</h2>
+            <ul>
+                <li>Des vélos de qualité, entretenus régulièrement pour une sécurité optimale.</li>
+                <li>Des tarifs compétitifs avec des options de location flexibles.</li>
+                <li>Une application mobile intuitive pour gérer vos trajets facilement.</li>
+                <li>Un réseau étendu de stations à proximité des points clés de la ville.</li>
+            </ul>
+        </div>
+
+        <!-- Présentation de l'équipe -->
+        <div class="about-team">
+            <h2>Rencontrez notre équipe</h2>
+            <p>Notre équipe est composée de passionnés de mobilité durable et d'experts en innovation technologique. Nous travaillons chaque jour pour vous offrir un service de location de vélos fiable et agréable. Ensemble, nous construisons l'avenir de la mobilité urbaine.</p>
+        </div>
+        <br>
+    </div>
+{% endblock %}
