@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -18,7 +19,8 @@ class Reservation
     private ?string $emailUser = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $Date = null;
+    #[Assert\NotNull(message: 'La date de réservation est obligatoire.')]
+    private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $heureDebut = null;
@@ -58,13 +60,12 @@ class Reservation
 
     public function getDate(): ?\DateTimeInterface
     {
-        return $this->Date;
+        return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $Date): static
+    public function setDate(\DateTimeInterface $date): static
     {
-        $this->Date = $Date;
-
+        $this->date = $date;
         return $this;
     }
 
