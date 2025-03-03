@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Entity\Station;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -47,6 +48,15 @@ class ReservationFormType extends AbstractType
                 'placeholder' => 'Sélectionnez une station',
                 'required' => true,
                 'mapped' => false,
+            ])
+            ->add('typeVelo', ChoiceType::class, [
+                'label' => 'Type de vélo',
+                'choices' => [
+                    'Électrique' => 'elec',
+                    'Mécanique' => 'meca',
+                ],
+                'expanded' => true, // Affiche en checkbox
+                'multiple' => false, // Un seul choix possible
             ])
             ->add('submit', SubmitType::class,[
                 'label' => 'Reserver'

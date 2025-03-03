@@ -69,6 +69,7 @@ class AppFixtures extends Fixture
             $reservation->setIdStationDepart($i); // Set integer value
             $reservation->setIdStationArrivee($i + 1); // Set integer value
             $reservation->setId($i);
+            $reservation->setTypeVelo(["Electrique", "Mecanique"][array_rand(["Electrique", "Mecanique"])]);
             $manager->persist($reservation);
         }
         $manager->flush();
