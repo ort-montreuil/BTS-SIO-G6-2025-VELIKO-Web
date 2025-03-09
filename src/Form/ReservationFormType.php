@@ -20,10 +20,13 @@ class ReservationFormType extends AbstractType
     {
         $builder
             ->add('date', DateType::class, [
-                'widget' => 'choice', // Use dropdowns for date selection
+                'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'years' => range(1950, date('Y')), // Set a 100-year range, starting from today
-                'label' => 'Date de reservation', // Customize label if needed
+                'html5' => true,
+                'attr' => [
+                    'min' => (new \DateTime())->format('Y-m-d'), // Définit la date minimum à aujourd'hui
+                ],
+                'label' => 'Date de réservation',
             ])
             ->add('heureDebut', TimeType::class, [
                 'widget' => 'single_text',

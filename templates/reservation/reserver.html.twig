@@ -1,11 +1,111 @@
 {% extends 'base.html.twig' %}
 
+{% block styles %}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+
+        .reservation-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .reservation-container h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+
 
 
 {% block body %}
-    <h1>Reservation</h1>
+    <div class="reservation-container">
+        <h1>Réservation</h1>
+        {{ form_start(reservationForm, {'attr': {'class': 'reservation-form'}}) }}
+        <div class="form-group">
+            {{ form_label(reservationForm.date) }}
+            {{ form_widget(reservationForm.date, {'attr': {'class': 'form-control'}}) }}
+        </div>
 
-    {{ form_start(reservationForm) }}
+        <div class="form-group">
+            {{ form_label(reservationForm.heureDebut) }}
+            {{ form_widget(reservationForm.heureDebut, {'attr': {'class': 'form-control'}}) }}
+        </div>
 
-    {{ form_end(reservationForm) }}
+        <div class="form-group">
+            {{ form_label(reservationForm.heureFin) }}
+            {{ form_widget(reservationForm.heureFin, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(reservationForm.idStationDepart) }}
+            {{ form_widget(reservationForm.idStationDepart, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(reservationForm.idStationArrivee) }}
+            {{ form_widget(reservationForm.idStationArrivee, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(reservationForm.typeVelo) }}
+            {{ form_widget(reservationForm.typeVelo, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_widget(reservationForm.submit, {'attr': {'class': 'cta-button'}}) }}
+        </div>
+        {{ form_end(reservationForm) }}
+    </div>
 {% endblock %}
