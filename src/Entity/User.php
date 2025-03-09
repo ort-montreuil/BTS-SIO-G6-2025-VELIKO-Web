@@ -64,10 +64,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $verificationToken = null;
 
     #[ORM\Column]
-    private ?bool $is_blocked = null;
+    private ?bool $is_blocked = false;
 
     #[ORM\Column]
-    private ?bool $nouveau_mdp = null;
+    private ?bool $nouveau_mdp = false;
 
     public function getId(): ?int
     {
