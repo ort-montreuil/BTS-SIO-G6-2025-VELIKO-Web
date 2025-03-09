@@ -49,9 +49,7 @@ class ReservationController extends AbstractController
                     if ($veloListe['station_id_available'] != $idStationArrivee && $veloListe['status'] == "location") {
                         $this->makeCurl("/api/velo/$idVelo/restore/$idStationArrivee", "PUT", "RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
 
-                    }else{
-                        $this->addFlash('error', 'Le vélo n\'a pas été ajouté à la station d\'arrivée');
-                    }
+
 
 
                     $reservation = $form->getData();
@@ -63,6 +61,9 @@ class ReservationController extends AbstractController
 
                     $this->addFlash('success', 'Votre réservation a été effectuée avec succès !');
                     return $this->redirectToRoute('app_map');
+                    }else{
+                        $this->addFlash('error', 'Le vélo n\'a pas été ajouté à la station d\'arrivée');
+                    }
                 } else {
                     $this->addFlash('error', 'Le vélo n\'a pas été retiré de la station de départ');
                 }
