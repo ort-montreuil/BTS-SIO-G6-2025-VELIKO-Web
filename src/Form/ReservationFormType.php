@@ -62,8 +62,8 @@ class ReservationFormType extends AbstractType
             ->add('typeVelo', ChoiceType::class, [
                 'label' => 'Type de vélo',
                 'choices' => [
-                    'Électrique' => 'elec',
-                    'Mécanique' => 'meca',
+                    'Électrique' => 'ebike',
+                    'Mécanique' => 'mechanical',
                 ],
                 'expanded' => true, // Affiche en checkbox
                 'multiple' => false, // Un seul choix possible
