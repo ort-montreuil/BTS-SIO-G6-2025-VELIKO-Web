@@ -36,7 +36,7 @@ class ReservationController extends AbstractController
             $manager->persist($reservation);
             $manager->flush();
 
-
+            $this->addFlash('success', 'Votre réservation a été effectuée avec succès !');
             return $this->redirectToRoute('app_map');
         }
 

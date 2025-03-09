@@ -24,17 +24,24 @@ class ReservationFormType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'html5' => true,
                 'attr' => [
-                    'min' => (new \DateTime())->format('Y-m-d'), // Définit la date minimum à aujourd'hui
+                    'min' => (new \DateTime())->format('Y-m-d'),
+                    'id' => 'reservation_date', // Ajout d'un ID pour le JS
                 ],
                 'label' => 'Date de réservation',
             ])
             ->add('heureDebut', TimeType::class, [
                 'widget' => 'single_text',
-                'label' => 'Heure de début'
+                'label' => 'Heure de début',
+                'attr' => [
+                    'id' => 'heure_debut', // Ajout d'un ID pour le JS
+                ],
             ])
             ->add('heureFin', TimeType::class, [
                 'widget' => 'single_text',
-                'label' => 'Heure de fin'
+                'label' => 'Heure de fin',
+                'attr' => [
+                    'id' => 'heure_fin', // Ajout d'un ID pour le JS
+                ],
             ])
             ->add('idStationDepart', EntityType::class, [
                 'class' => Station::class,
