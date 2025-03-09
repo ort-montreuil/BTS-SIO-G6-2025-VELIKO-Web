@@ -1,21 +1,28 @@
 <?php
 
+// src/Controller/ReservationController.php
+
 namespace App\Controller;
 
-use App\Entity\Reservation;
 use App\Entity\User;
 use App\Form\ReservationFormType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationController extends AbstractController
 {
     #[Route('/reserver/{id}', name: 'app_reservation')]
-    public function reserverVelo(User $user, Request $request,EntityManagerInterface $manager): Response
+    public function reserverVelo(UserRepository $userRepository, int $id, Request $request, EntityManagerInterface $manager): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login'); // Redirige l'utilisateur vers la page de connexion
+        }
+
         //Verifier si l'utilisateur est connecté
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_map');
@@ -41,8 +48,7 @@ class ReservationController extends AbstractController
         }
 
         return $this->render('reservation/reserver.html.twig', [
-            'reservationForm' => $form,
-
+            'reservationForm' => $form->createView(),
         ]);
     }
 }

@@ -184,10 +184,13 @@
 
     <!-- Section de mini-statistiques en bas de la page -->
     <div class="stats-section">
-    <p style="color: white;">Nombre total de stations : {{ totalStations }}</p>
-    <p style="color: white;">Vélos électriques disponibles : {{ totalElectricBikes }}</p>
-    <p style="color: white;">Vélos mécaniques disponibles : {{ totalMechanicalBikes }}</p>
-</div>
+        <p style="color: white;">Nombre total de stations : {{ totalStations }}</p>
+        <p style="color: white;">Vélos électriques disponibles : {{ totalElectricBikes }}</p>
+        <p style="color: white;">Vélos mécaniques disponibles : {{ totalMechanicalBikes }}</p>
+    </div>
+
+
+
 
     <div class="info-section">
         <p>Favorisez la mobilité écologique en utilisant notre système de vélos en libre-service. Nos stations réparties dans la ville vous permettent de trouver rapidement un vélo près de chez vous.</p>
@@ -269,8 +272,14 @@
                 '<form action="{{ path('app_add_favorite', {'id': station.id}) }}" method="post">' +
                 '<button type="submit" class="favBtn">Mettre en favoris</button>' +
                 '</form>' +
+                '<br>' +
+                // Ajouter le bouton de réservation
+                '<a href="{{ path('app_reservation', {'id': station.id}) }}">' +
+                '<button class="favBtn">Réserver un vélo</button>' +
+                '</a>' +
                 '{% endif %}' +
-                '{% endif %}'+
+                '{% endif %}' +
+                '<br>' +
                 '</div>';
 
             marker.bindPopup(popupContent); // Simply bind the popup
