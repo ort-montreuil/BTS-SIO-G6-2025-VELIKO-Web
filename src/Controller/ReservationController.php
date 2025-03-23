@@ -38,7 +38,6 @@ class ReservationController extends AbstractController
 
             $response = $this->makeCurl("/api/velos", "GET", "");
 
-
             foreach ($response as $velo) {
                 $idVelo = $velo["velo_id"];
 
@@ -50,18 +49,17 @@ class ReservationController extends AbstractController
                     // Mettre le vélo en location
                     $this->makeCurl("/api/velo/{$idVelo}/location", "PUT", "RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
 
-                    dd(((int)$velo["station_id_available"] != (int)$idStationArrivee
-                        && $velo["status"] == "location"));
+                    $majResponse = $this->makeCurl("/api/velos", "GET", "");
+                    foreach ($majResponse as $veloMaj)
                     // Vérifier si le vélo est en location et doit être ramené à la station de fin
-                    if ((int) $velo["station_id_available"] != (int) $idStationArrivee
-                        && $velo["status"] == "location") {
-
+                    if ((int) $veloMaj["station_id_available"] != (int) $idStationArrivee
+                        && $veloMaj["status"] == "location") {
                         // Restauration du vélo à la station de fin
                         $this->makeCurl("/api/velo/{$idVelo}/restore/{$idStationArrivee}", "PUT", "RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
 
+                    }else{
+                        $this->addFlash('danger', 'Pas de possibilité de remettre le vélo à la station d\'arrivée');
                     }
-
-
                     $reservation = $form->getData();
                     $reservation->setIdStationDepart($form->get('idStationDepart')->getData()->getId());
                     $reservation->setIdStationArrivee($form->get('idStationArrivee')->getData()->getId());
@@ -73,25 +71,17 @@ class ReservationController extends AbstractController
 
 
                     return $this->redirectToRoute('app_map');
+                }else{
+                    $this->addFlash('danger', 'Pas de vélo disponible à la station de départ');
                 }
             }
+        }else{
+            $this->addFlash('danger', 'Veuillez remplir correctement le formulaire');
         }
         return $this->render('reservation/reserver.html.twig', [
             'reservationForm' => $form->createView(),
         ]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
