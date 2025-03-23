@@ -69,7 +69,6 @@ class ReservationController extends AbstractController
 
                     $this->addFlash('success', 'Votre réservation a été effectuée avec succès !');
 
-
                     return $this->redirectToRoute('app_map');
                 }else{
                     $this->addFlash('danger', 'Pas de vélo disponible à la station de départ');
