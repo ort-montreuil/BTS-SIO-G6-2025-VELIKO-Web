@@ -15,41 +15,51 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationController extends AbstractController
 {
-    #[Route('/reserver/{id}', name: 'app_reservation')]
-    public function reserverVelo(UserRepository $userRepository, int $id, Request $request, EntityManagerInterface $manager): Response
+    #[Route('/reserver', name: 'app_reservation')]
+    public function reserverVelo(UserRepository $userRepository, Request $request, EntityManagerInterface $manager): Response
     {
         $user = $this->getUser();
+        // Vérifier si l'utilisateur est connecté
+        if (!$user) {
+            return $this->redirectToRoute('app_map');
+        }
 
-        //Verifier si l'utilisateur est connecté
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_map');
-        }
-        if ($this->getUser() !== $user) {
-            return $this->redirectToRoute('app_map');
-        }
 
         $form = $this->createForm(ReservationFormType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
             //location velo: venir retirer le velo
-            $idStation = $form->get('idStationDepart')->getData()->getId();
+
+            $idStationDepart = $form->get('idStationDepart')->getData()->getStationId();
             $typeVelo = $form->get('typeVelo')->getData();
-            $idStationArrivee = $form->get('idStationArrivee')->getData()->getId();
+            $idStationArrivee = $form->get('idStationArrivee')->getData()->getStationId();
 
             $response = $this->makeCurl("/api/velos", "GET", "");
 
-            foreach ($response as $veloListe) {
 
-                if ($veloListe['station_id_available'] == $idStation && $typeVelo == $veloListe['type'] && $veloListe['status'] == "available") {
-                    $idVelo = $veloListe['velo_id'];
-                    $this->makeCurl("/api/velo/" . $idVelo . "/location", "PUT", "Authorization: RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
+            foreach ($response as $velo) {
+                $idVelo = $velo["velo_id"];
 
-                    if ($veloListe['station_id_available'] != $idStationArrivee && $veloListe['status'] == "location") {
-                        $this->makeCurl("/api/velo/$idVelo/restore/$idStationArrivee", "PUT", "RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
+                // Vérifier si le vélo est disponible à la station de départ
+                if ((int) $velo["station_id_available"] == (int) $idStationDepart
+                    && $velo["status"] == "available"
+                    && ($velo["type"] == $typeVelo)) {
 
+                    // Mettre le vélo en location
+                    $this->makeCurl("/api/velo/{$idVelo}/location", "PUT", "RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
 
+                    dd(((int)$velo["station_id_available"] != (int)$idStationArrivee
+                        && $velo["status"] == "location"));
+                    // Vérifier si le vélo est en location et doit être ramené à la station de fin
+                    if ((int) $velo["station_id_available"] != (int) $idStationArrivee
+                        && $velo["status"] == "location") {
+
+                        // Restauration du vélo à la station de fin
+                        $this->makeCurl("/api/velo/{$idVelo}/restore/{$idStationArrivee}", "PUT", "RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
+
+                    }
 
 
                     $reservation = $form->getData();
@@ -60,25 +70,33 @@ class ReservationController extends AbstractController
                     $manager->flush();
 
                     $this->addFlash('success', 'Votre réservation a été effectuée avec succès !');
+
+
                     return $this->redirectToRoute('app_map');
-                    }else{
-                        $this->addFlash('error', 'Le vélo n\'a pas été ajouté à la station d\'arrivée');
-                    }
-                } else {
-                    $this->addFlash('error', 'Le vélo n\'a pas été retiré de la station de départ');
                 }
             }
-
         }
         return $this->render('reservation/reserver.html.twig', [
             'reservationForm' => $form->createView(),
         ]);
     }
 
-    public
-    function makeCurl(string $url, string $methode, string $token)
-    {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function makeCurl(string $url, string $methode, string $token)
+    {
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -103,7 +121,6 @@ class ReservationController extends AbstractController
             echo "cURL Error #:" . $err;
         } else {
             $response = json_decode($response, true);
-
         }
         return $response;
     }

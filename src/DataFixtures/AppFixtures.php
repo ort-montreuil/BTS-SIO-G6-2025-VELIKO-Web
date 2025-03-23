@@ -66,8 +66,8 @@ class AppFixtures extends Fixture
             $reservation->setDate((new \DateTime())->setTimestamp(mt_rand(strtotime('2010-01-01'), strtotime('2024-12-31'))));
             $reservation->setHeureDebut((new \DateTime())->setTimestamp(mt_rand(1, time())));
             $reservation->setHeureFin((new \DateTime())->setTimestamp(mt_rand(1, time())));
-            $reservation->setIdStationDepart($i); // Set integer value
-            $reservation->setIdStationArrivee($i + 1); // Set integer value
+            $reservation->setIdStationDepart(6245); // Set integer value
+            $reservation->setIdStationArrivee(6293); // Set integer value
             $reservation->setId($i);
             $reservation->setTypeVelo(["Electrique", "Mecanique"][array_rand(["Electrique", "Mecanique"])]);
             $manager->persist($reservation);
