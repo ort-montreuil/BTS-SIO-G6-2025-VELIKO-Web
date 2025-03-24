@@ -41,14 +41,21 @@ Appliquez les migrations pour mettre à jour la structure de la base de données
 symfony console doctrine:migrations:migrate
 ````
 
-### Étape 6 : Importation des stations dans la base de données
+### Étape 6 : Importation des users dans la base de données
+
+Pour ajouter des users dans votre base de données, utilisez la commande suivante :
+```bash
+symfony console doctrine:fixtures:load
+````
+
+### Étape 7 : Importation des stations dans la base de données
 
 Pour ajouter les stations dans votre base de données, utilisez la commande suivante :
 ```bash
 symfony console app:fetch-stations
 ````
 
-### Étape 7 : Lancer le serveur
+### Étape 8 : Lancer le serveur
 
 Enfin, lancez le serveur Symfony pour démarrer l’application :
 ```bash
